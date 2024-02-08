@@ -2,16 +2,24 @@ const fs = require('fs');
 const xlsx = require('xlsx');
 const multer = require('multer');
 
+
 const storage = multer.diskStorage({
 
-    destination : (req,file,cb) => { cb(null,'uploads/');},
-    fileName : (req,file,cb) => { cb(null, Date.now() + '-' + file.originalname);}
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+ '-' + file.originalname);
+    }
 });
+
 const upload = multer({ storage : storage });
 async function file_con (req,res,next){
     if(!req.file)
         return res.status(400).json({error: 'No File Uploaded.'})
     const filepate = req.file.path;
+    console.log(req.file.originalname)
+    console.log(filepate)
     if(!filepate.endsWith('.xlsx')){
         fs.unlinkSync(filepate);
         return res.status(400).json({error: 'Invalid File Format.'});
@@ -19,7 +27,8 @@ async function file_con (req,res,next){
     const workbook = xlsx.readFile(filepate);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
     const data = xlsx.utils.sheet_to_json(worksheet);
-    res.data;
+
+    res.data = data;
     next();
 }
 
