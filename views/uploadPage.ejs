@@ -15,6 +15,10 @@
 </head>
 <body>
 <h1>Upload XLSX File</h1>
+<%if(pageVal.isUploaded){%>
+    <p><%=pageVal.mssg%></p>
+<%}%>
+
 <form id="uploadForm" enctype="multipart/form-data" action="http://localhost:2507/upload" method="post">
     <input type="file" name="file" >
     <button type="submit">Upload</button>

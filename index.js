@@ -4,7 +4,6 @@ const ejs = require('ejs');
 const uploads_mw = require('./middleware/uploads_mw');
 const path = require('path');
 const express = require('express');
-const {json} = require("express");
 
 
 const app = express();
@@ -19,10 +18,14 @@ app.use(express.static(path.join(__dirname, "css")));
 app.use(express.static(path.join(__dirname, "js")));
 app.set("view engine","ejs");
 app.get('/',(req,res)=>{
-    res.render('uploadPage.ejs')
+    let pageVal = {
+        mssg:"file uploaded successfully!",
+        isUploaded:false
+    }
+    res.render('uploadPage.ejs',{data:res.data,pageVal:pageVal})
 })
 app.post('/upload', [uploads_mw.upload.single('file'),uploads_mw.file_con] ,(req,res) => {
-    res.data;
+    res.render('uploadPage.ejs',{data:res.data,pageVal:res.pageVal});
 });
 
 app.listen(port, () => {

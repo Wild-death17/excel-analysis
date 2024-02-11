@@ -27,7 +27,10 @@ async function file_con (req,res,next){
     const workbook = xlsx.readFile(filepate);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
     const data = xlsx.utils.sheet_to_json(worksheet);
-
+res.pageVal = {
+    mssg:"file uploaded successfully!",
+    isUploaded:true
+}
     res.data = data;
     next();
 }
