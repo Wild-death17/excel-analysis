@@ -67,10 +67,10 @@
 <%if(pageVal.isUploaded){%>
     <p><%=pageVal.mssg%></p>
 <%}%>
-
+<button id="graphBtn">display</button>
 <form id="uploadForm" enctype="multipart/form-data" action="http://localhost:2507/upload" method="post">
     <input type="file" name="file" >
-    <button type="submit">Upload</button>
+    <button id="submitUp" type="submit">Upload</button>
 </form>
     <div id="graph"></div>
 <button id="refreshBtn">refresh files</button>
@@ -80,7 +80,26 @@
     </div>
 <script>
     let list = document.getElementsByTagName("ul")[0],
-        refBtn = document.getElementById("refreshBtn");
+        graph = document.getElementById("graph"),
+        graphBtn = document.getElementById("graphBtn"),
+        upBtn = document.getElementById("submitUp");
+
+    graphBtn.addEventListener("click", async ()=>{
+   let data = await fetchData("http://localhost:2507/readFile");
+        for (const item of data) {
+            let str = "";
+            str+=`${item.name}, ${item.age} \n`;
+             graph.innerHTML += str;
+        }
+})
+    async function fetchData(urlLocation){
+        let response = await fetch(urlLocation,{
+            method:"GET"
+        });
+        let Data = await response.json();
+        console.log(Data);
+         return Data;
+    }
 
 </script>
 </body>

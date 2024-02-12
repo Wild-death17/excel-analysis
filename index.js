@@ -2,6 +2,7 @@
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const uploads_mw = require('./middleware/uploads_mw');
+const readFile_mw = require('./middleware/readFile_mw');
 const path = require('path');
 const express = require('express');
 
@@ -22,10 +23,13 @@ app.get('/',(req,res)=>{
         mssg:"file uploaded successfully!",
         isUploaded:false
     }
-    res.render('uploadPage.ejs',{data:res.data,pageVal:pageVal})
+    res.render('uploadPage.ejs',{pageVal:pageVal})
 })
 app.post('/upload', [uploads_mw.upload.single('file'),uploads_mw.file_con] ,(req,res) => {
-    res.render('uploadPage.ejs',{data:res.data,pageVal:res.pageVal});
+    res.render('uploadPage.ejs',{pageVal:res.pageVal});
+});
+app.get('/readFile',[readFile_mw.readFile],(req,res) => {
+    res.status(200).json(res.response);
 });
 
 app.listen(port, () => {
