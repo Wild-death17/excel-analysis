@@ -6,11 +6,60 @@
     <title>Upload XLSX File</title>
     <style>
         #graph{
-            width: 800px;
+            width: 40%;
             height: 500px;
             border: black 1px solid;
             margin-top: 50px;
+            float: left;
         }
+        #files{
+            width: 40%;
+            height: 500px;
+            border: black 1px solid;
+            margin-top: 50px;
+            float: right;
+            position: relative;
+        }
+        #refreshBtn{
+            position: relative;
+            left: 35%;
+        }
+        ul {
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            overflow: scroll;
+            margin: 0;
+            padding: 0;
+
+            border: 2px solid #ccc;
+
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+
+
+        -webkit-overflow-scrolling: touch;
+        }
+
+        li {
+            padding: 10px 20px;
+
+            border-bottom: 1px solid #ccc;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:nth-child(even) {
+                background: #f8f8f8;
+            }
+        }
+        li:hover{
+            border: 3px solid #ccc;
+        }
+
     </style>
 </head>
 <body>
@@ -23,6 +72,16 @@
     <input type="file" name="file" >
     <button type="submit">Upload</button>
 </form>
-    <section id="graph"></section>
+    <div id="graph"></div>
+<button id="refreshBtn">refresh files</button>
+    <div id="files">
+        <ul>
+        </ul>
+    </div>
+<script>
+    let list = document.getElementsByTagName("ul")[0],
+        refBtn = document.getElementById("refreshBtn");
+
+</script>
 </body>
 </html>
