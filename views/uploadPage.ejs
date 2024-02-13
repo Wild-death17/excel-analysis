@@ -12,7 +12,7 @@
             margin-top: 50px;
             float: left;
         }
-        #files{
+        #filesArea{
             width: 40%;
             height: 500px;
             border: black 1px solid;
@@ -74,8 +74,8 @@
 </form>
     <div id="graph"></div>
 <button id="refreshBtn">refresh files</button>
-    <div id="files">
-        <ul>
+    <div id="filesArea">
+        <ul id="filesList">
         </ul>
     </div>
 <script>
@@ -83,25 +83,30 @@
         graph = document.getElementById("graph"),
         graphBtn = document.getElementById("graphBtn"),
         refBtn = document.getElementById("refreshBtn"),
+        filesList = document.getElementById("filesList"),
         upBtn = document.getElementById("submitUp");
 
-    graphBtn.addEventListener("click", async ()=>{
-   let data = await fetchFile("http://localhost:2507/readFile");
+    async function showFileData(filePath){
+        let data = await fetchFile("http://localhost:2507/readFile",filePath);
         for (const item of data) {
             let str = "";
             str+=`${item.name}, ${item.age} <br>`;
-             graph.innerHTML += str;
+            graph.innerHTML += str;
         }
-})
+    }
     refBtn.addEventListener("click", async ()=>{
-   let data = await fetchFile("http://localhost:2507/readFile");
-        console.log(data)
+   let data = await fetchFilesPath("http://localhost:2507/getFile");
+   let str = "";
+        for (const row of data) {
+            str+= `<li onclick="showFileData(${row})"> ${row} </li>`
+        }
+        filesList.innerHTML=str;
 })
-    async function fetchFile(urlLocation){
+    async function fetchFile(urlLocation,filePath){
         let response = await fetch(urlLocation,{
-            method:"GET",
+            method:"POST",
             body:JSON.stringify({
-                filePath:"1707665997132-xlsx file.xlsx"
+                filePath:filePath
             })
         })
 
@@ -111,12 +116,10 @@
     }
     async function fetchFilesPath(urlLocation){
         let response = await fetch(urlLocation,{
-            method:"GET",
+            method:"GET"
         })
-
-        let Data = await response.json();
-        console.log(Data);
-         return Data;
+        let data = await  response.json();
+        return data;
     }
 
 </script>

@@ -42,20 +42,15 @@ function readFile(req,res,next){
 }
 function getFiles(req,res,next){
     const dirPath = "./uploads";
-    let response;
     fs.readdir(dirPath, (err, files) => {
         if (err) {
             console.error('Error reading directory:', err);
             return;
         }
-        response = files;
-        console.log(response)
-    })
-    if (response.length<0){
-        return res.status(400).json({error: 'No Files found'})
-    }
-    res.filesPath= response;
+        res.filesPathStr = files;
+    console.log(res.filesPathStr)
     next();
+    })
 }
 
 

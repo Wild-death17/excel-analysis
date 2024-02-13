@@ -27,11 +27,11 @@ app.get('/',(req,res)=>{
 app.post('/upload', [files_mw.upload.single('file'),files_mw.file_con] ,(req,res) => {
     res.render('uploadPage.ejs',{pageVal:res.pageVal});
 });
-app.get('/readFile',[files_mw.readFile],(req,res) => {
+app.post('/readFile',[files_mw.readFile],(req,res) => {
     res.status(200).json(res.response);
 });
 app.get('/getFile',[files_mw.getFiles],(req,res) => {
-    res.status(200).json(res.response);
+    res.status(200).json(res.filesPathStr);
 });
 
 app.listen(port, () => {
