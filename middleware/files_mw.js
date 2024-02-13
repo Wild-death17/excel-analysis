@@ -9,11 +9,14 @@ const storage = multer.diskStorage({
         cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now()+ '-' + file.originalname);
+        let dateNtimeStr = `${new Date().toLocaleDateString().replace(/\//g, '.')}`;
+        dateNtimeStr += ` ${new Date().toLocaleTimeString().replace(/:/g, '-')}`;
+        cb(null, dateNtimeStr + file.originalname);
     }
 });
 
-const upload = multer({ storage : storage });
+const upload = multer({storage: storage});
+
 async function file_con (req,res,next){
     if(!req.file)
         return res.status(400).json({error: 'No File Uploaded.'})
