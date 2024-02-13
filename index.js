@@ -1,8 +1,7 @@
 // npm i ejs body-parser express path fs multer
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
-const uploads_mw = require('./middleware/uploads_mw');
-const readFile_mw = require('./middleware/readFile_mw');
+const files_mw = require('./middleware/files_mw');
 const path = require('path');
 const express = require('express');
 
@@ -25,10 +24,13 @@ app.get('/',(req,res)=>{
     }
     res.render('uploadPage.ejs',{pageVal:pageVal})
 })
-app.post('/upload', [uploads_mw.upload.single('file'),uploads_mw.file_con] ,(req,res) => {
+app.post('/upload', [files_mw.upload.single('file'),files_mw.file_con] ,(req,res) => {
     res.render('uploadPage.ejs',{pageVal:res.pageVal});
 });
-app.get('/readFile',[readFile_mw.readFile],(req,res) => {
+app.get('/readFile',[files_mw.readFile],(req,res) => {
+    res.status(200).json(res.response);
+});
+app.get('/getFile',[files_mw.getFiles],(req,res) => {
     res.status(200).json(res.response);
 });
 
