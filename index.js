@@ -1,10 +1,9 @@
 // npm i ejs body-parser express path fs multer
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
-const uploads_mw = require('./middleware/uploads_mw');
+const files_mw = require('./middleware/files_mw');
 const path = require('path');
 const express = require('express');
-const {json} = require("express");
 
 
 const app = express();
@@ -19,10 +18,20 @@ app.use(express.static(path.join(__dirname, "css")));
 app.use(express.static(path.join(__dirname, "js")));
 app.set("view engine","ejs");
 app.get('/',(req,res)=>{
-    res.render('uploadPage.ejs')
+    let pageVal = {
+        mssg:"file uploaded successfully!",
+        isUploaded:false
+    }
+    res.render('uploadPage.ejs',{pageVal:pageVal})
 })
-app.post('/upload', [uploads_mw.upload.single('file'),uploads_mw.file_con] ,(req,res) => {
-    res.data;
+app.post('/upload', [files_mw.upload.single('file'),files_mw.file_con] ,(req,res) => {
+    res.render('uploadPage.ejs',{pageVal:res.pageVal});
+});
+app.post('/readFile',[files_mw.readFile],(req,res) => {
+    res.status(200).json(res.response);
+});
+app.get('/getFile',[files_mw.getFiles],(req,res) => {
+    res.status(200).json(res.filesPathStr);
 });
 
 app.listen(port, () => {
