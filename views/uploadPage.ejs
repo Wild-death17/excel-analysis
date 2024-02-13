@@ -98,13 +98,17 @@
    let data = await fetchFilesPath("http://localhost:2507/getFile");
    let str = "";
         for (const row of data) {
-            str+= `<li onclick="showFileData(${row})"> ${row} </li>`
+            console.log(row)
+            str+= `<li onclick="showFileData('${row}')"> ${row} </li>`
         }
         filesList.innerHTML=str;
 })
     async function fetchFile(urlLocation,filePath){
         let response = await fetch(urlLocation,{
             method:"POST",
+            headers:{
+                'content-Type':'application/json'
+            },
             body:JSON.stringify({
                 filePath:filePath
             })

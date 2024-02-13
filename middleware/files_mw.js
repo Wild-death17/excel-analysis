@@ -33,10 +33,10 @@ async function file_con (req,res,next){
 }
 function readFile(req,res,next){
     let filePath = req.body.filePath;
-    const workbook = xlsx.readFile(filePath);
+    console.log(filePath)
+    const workbook = xlsx.readFile('./uploads/'+filePath);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    let response = xlsx.utils.sheet_to_json(worksheet);
-    res.response = response;
+    res.response = xlsx.utils.sheet_to_json(worksheet);
     next();
 
 }
@@ -48,7 +48,6 @@ function getFiles(req,res,next){
             return;
         }
         res.filesPathStr = files;
-    console.log(res.filesPathStr)
     next();
     })
 }
