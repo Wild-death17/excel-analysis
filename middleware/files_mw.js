@@ -32,10 +32,10 @@ async function file_con (req,res,next){
     next();
 }
 function readFile(req,res,next){
-    const workbook = xlsx.readFile("uploads/1707666602703-xlsx file.xlsx");
+    let filePath = req.body.filePath;
+    const workbook = xlsx.readFile(filePath);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
     let response = xlsx.utils.sheet_to_json(worksheet);
-    console.log(response)
     res.response = response;
     next();
 
@@ -51,14 +51,11 @@ function getFiles(req,res,next){
         response = files;
         console.log(response)
     })
-    //console.log(response);
-    const workbook = xlsx.readFile("uploads/1707666602703-xlsx file.xlsx");
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    response = xlsx.utils.sheet_to_json(worksheet);
-    console.log(response)
-    res.response = response;
+    if (response.length<0){
+        return res.status(400).json({error: 'No Files found'})
+    }
+    res.filesPath= response;
     next();
-
 }
 
 

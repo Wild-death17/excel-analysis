@@ -82,20 +82,38 @@
     let list = document.getElementsByTagName("ul")[0],
         graph = document.getElementById("graph"),
         graphBtn = document.getElementById("graphBtn"),
+        refBtn = document.getElementById("refreshBtn"),
         upBtn = document.getElementById("submitUp");
 
     graphBtn.addEventListener("click", async ()=>{
-   let data = await fetchData("http://localhost:2507/readFile");
+   let data = await fetchFile("http://localhost:2507/readFile");
         for (const item of data) {
             let str = "";
-            str+=`${item.name}, ${item.age} \n`;
+            str+=`${item.name}, ${item.age} <br>`;
              graph.innerHTML += str;
         }
 })
-    async function fetchData(urlLocation){
+    refBtn.addEventListener("click", async ()=>{
+   let data = await fetchFile("http://localhost:2507/readFile");
+        console.log(data)
+})
+    async function fetchFile(urlLocation){
         let response = await fetch(urlLocation,{
-            method:"GET"
-        });
+            method:"GET",
+            body:JSON.stringify({
+                filePath:"1707665997132-xlsx file.xlsx"
+            })
+        })
+
+        let Data = await response.json();
+        console.log(Data);
+         return Data;
+    }
+    async function fetchFilesPath(urlLocation){
+        let response = await fetch(urlLocation,{
+            method:"GET",
+        })
+
         let Data = await response.json();
         console.log(Data);
          return Data;
