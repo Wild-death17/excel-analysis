@@ -88,11 +88,12 @@
 
     async function showFileData(filePath){
         let data = await fetchFile("http://localhost:2507/readFile",filePath);
-        for (const item of data) {
             let str = "";
+        graph.innerHTML = "";
+        for (const item of data) {
             str+=`${item.name}, ${item.age} <br>`;
-            graph.innerHTML += str;
         }
+            graph.innerHTML += str;
     }
     refBtn.addEventListener("click", async ()=>{
    let data = await fetchFilesPath("http://localhost:2507/getFile");
