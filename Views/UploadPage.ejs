@@ -68,7 +68,7 @@
     <p><%=pageVal.mssg%></p>
 <%}%>
 <button id="graphBtn">display</button>
-<form id="uploadForm" enctype="multipart/form-data" action="http://localhost:2507/upload" method="post">
+<form id="uploadForm" enctype="multipart/form-data" action="http://localhost:2507/Files/UploadFile" method="post">
     <input type="file" name="file" >
     <button id="submitUp" type="submit">Upload</button>
 </form>
@@ -86,8 +86,8 @@
         filesList = document.getElementById("filesList"),
         upBtn = document.getElementById("submitUp");
 
-    async function showFileData(filePath){
-        let data = await fetchFile("http://localhost:2507/readFile",filePath);
+    async function showFileData(FilePath){
+        let data = await fetchFile("http://localhost:2507/Files/ReadFile",FilePath);
             let str = "";
         graph.innerHTML = "";
         for (const item of data) {
@@ -96,7 +96,7 @@
             graph.innerHTML += str;
     }
     refBtn.addEventListener("click", async ()=>{
-   let data = await fetchFilesPath("http://localhost:2507/getFile");
+   let data = await fetchFilesPath("http://localhost:2507/Files/GetFile");
    let str = "";
         for (const row of data) {
             console.log(row)
@@ -104,14 +104,14 @@
         }
         filesList.innerHTML=str;
 })
-    async function fetchFile(urlLocation,filePath){
+    async function fetchFile(urlLocation,FilePath){
         let response = await fetch(urlLocation,{
             method:"POST",
             headers:{
                 'content-Type':'application/json'
             },
             body:JSON.stringify({
-                filePath:filePath
+                filePath:FilePath
             })
         })
 
