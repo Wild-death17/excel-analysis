@@ -59,6 +59,13 @@
         li:hover{
             border: 3px solid #ccc;
         }
+        li #deleteBtn{
+            border: black solid 1px;
+            height: 100%;
+            width: 20%;
+            z-index: 1;
+            position: relative;
+        }
 
     </style>
 </head>
@@ -95,15 +102,31 @@
         }
             graph.innerHTML += str;
     }
-    refBtn.addEventListener("click", async ()=>{
-   let data = await fetchFilesPath("http://localhost:2507/Files/GetFile");
-   let str = "";
+
+    async function deleteFile(FilePath){
+        if (confirm("do tou wont to delete this file?")) {
+            await fetch("http://localhost:2507/Files/DeleteFile",{
+                method:"DELETE",
+                headers:{
+                    'content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    filePath:FilePath
+                })
+            })
+        }
+        await getFile();
+    }
+    async function getFile(){
+        let data = await fetchFilesPath("http://localhost:2507/Files/GetFile");
+        let str = "";
         for (const row of data) {
             console.log(row)
-            str+= `<li onclick="showFileData('${row}')"> ${row} </li>`
+            str+= `<li onclick="showFileData('${row}')"> ${row} <button id="deleteBtn" onclick="deleteFile('${row}')"> delete</button> </li>`
         }
         filesList.innerHTML=str;
-})
+    }
+    refBtn.addEventListener("click",getFile);
     async function fetchFile(urlLocation,FilePath){
         let response = await fetch(urlLocation,{
             method:"POST",

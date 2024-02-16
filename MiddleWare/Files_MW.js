@@ -39,7 +39,22 @@ function ReadFile(req, res, next) {
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
     res.response = xlsx.utils.sheet_to_json(WorkSheet);
     next();
-
+}
+function DeleteFile(req, res, next){
+    let filenameToDelete = req.body.filePath;
+    let filePath = './uploads/' + filenameToDelete;
+    if (fs.existsSync(filePath)) {
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error('Error deleting file:', err);
+                return;
+            }
+            console.log('File deleted successfully');
+        });
+    } else {
+        console.error('File does not exist');
+    }
+    next();
 }
 
 function GetFiles(req, res, next) {
@@ -62,6 +77,7 @@ module.exports = {
     Upload: Upload,
     File_Con: File_Con,
     ReadFile: ReadFile,
-    GetFiles: GetFiles
+    GetFiles: GetFiles,
+    DeleteFile:DeleteFile
 
 }
