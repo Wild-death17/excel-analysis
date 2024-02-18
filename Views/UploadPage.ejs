@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload XLSX File</title>
     <style>
-        #graph{
+        #graph {
             width: 40%;
             height: 500px;
             border: black 1px solid;
             margin-top: 50px;
             float: left;
         }
-        #filesArea{
+
+        #filesArea {
             width: 40%;
             height: 500px;
             border: black 1px solid;
@@ -20,10 +21,12 @@
             float: right;
             position: relative;
         }
-        #refreshBtn{
+
+        #refreshBtn {
             position: relative;
             left: 35%;
         }
+
         ul {
             position: absolute;
             top: 20px;
@@ -40,11 +43,12 @@
             font-family: Arial, sans-serif;
 
 
-        -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch;
         }
 
         li {
-            padding: 10px 20px;
+            position: relative;
+
 
             border-bottom: 1px solid #ccc;
 
@@ -56,35 +60,41 @@
                 background: #f8f8f8;
             }
         }
-        li:hover{
+
+        li:hover {
             border: 3px solid #ccc;
         }
-        li #deleteBtn{
-            border: black solid 1px;
-            height: 100%;
-            width: 20%;
-            z-index: 1;
-            position: relative;
+        li div{
+            width: 80%;
+            padding: 10px 20px;
         }
+        #deleteBtn {
+
+            position: absolute;
+            right: 0px;
+            top:0px;
+            height: 100%;
+        }
+
 
     </style>
 </head>
 <body>
 <h1>Upload XLSX File</h1>
-<%if(pageVal.isUploaded){%>
-    <p><%=pageVal.mssg%></p>
-<%}%>
+<% if(pageVal.isUploaded){ %>
+    <p><%= pageVal.mssg %></p>
+<% } %>
 <button id="graphBtn">display</button>
 <form id="uploadForm" enctype="multipart/form-data" action="http://localhost:2507/Files/UploadFile" method="post">
-    <input type="file" name="file" >
+    <input type="file" name="file">
     <button id="submitUp" type="submit">Upload</button>
 </form>
-    <div id="graph"></div>
+<div id="graph"></div>
 <button id="refreshBtn">refresh files</button>
-    <div id="filesArea">
-        <ul id="filesList">
-        </ul>
-    </div>
+<div id="filesArea">
+    <ul id="filesList">
+    </ul>
+</div>
 <script>
     let list = document.getElementsByTagName("ul")[0],
         graph = document.getElementById("graph"),
@@ -93,60 +103,69 @@
         filesList = document.getElementById("filesList"),
         upBtn = document.getElementById("submitUp");
 
-    async function showFileData(FilePath){
-        let data = await fetchFile("http://localhost:2507/Files/ReadFile",FilePath);
-            let str = "";
+    async function showFileData(FilePath) {
+        let data = await fetchFile("http://localhost:2507/Files/ReadFile", FilePath);
+        let str = "";
         graph.innerHTML = "";
         for (const item of data) {
-            str+=`${item.name}, ${item.age} <br>`;
+            str += `${item.name}, ${item.age} <br>`;
         }
-            graph.innerHTML += str;
+        graph.innerHTML += str;
     }
 
-    async function deleteFile(FilePath){
+    async function deleteFile(FilePath) {
         if (confirm("do tou wont to delete this file?")) {
-            await fetch("http://localhost:2507/Files/DeleteFile",{
-                method:"DELETE",
-                headers:{
-                    'content-Type':'application/json'
+            await fetch("http://localhost:2507/Files/DeleteFile", {
+                method: "DELETE",
+                headers: {
+                    'content-Type': 'application/json'
                 },
-                body:JSON.stringify({
-                    filePath:FilePath
+                body: JSON.stringify({
+                    filePath: FilePath
                 })
             })
+
         }
         await getFile();
     }
-    async function getFile(){
+
+    async function getFile() {
         let data = await fetchFilesPath("http://localhost:2507/Files/GetFile");
         let str = "";
         for (const row of data) {
             console.log(row)
-            str+= `<li onclick="showFileData('${row}')"> ${row} <button id="deleteBtn" onclick="deleteFile('${row}')"> delete</button> </li>`
+
+            str += `<li>`;
+            str += `<div  onclick="showFileData('${row}')">${row}</div>`;
+            str += `<button id="deleteBtn" onclick="deleteFile('${row}')"> delete </button>`;
+            str += `</li>`;
         }
-        filesList.innerHTML=str;
+        filesList.innerHTML = str;
     }
-    refBtn.addEventListener("click",getFile);
-    async function fetchFile(urlLocation,FilePath){
-        let response = await fetch(urlLocation,{
-            method:"POST",
-            headers:{
-                'content-Type':'application/json'
+
+    refBtn.addEventListener("click", getFile);
+
+    async function fetchFile(urlLocation, FilePath) {
+        let response = await fetch(urlLocation, {
+            method: "POST",
+            headers: {
+                'content-Type': 'application/json'
             },
-            body:JSON.stringify({
-                filePath:FilePath
+            body: JSON.stringify({
+                filePath: FilePath
             })
         })
 
         let Data = await response.json();
         console.log(Data);
-         return Data;
+        return Data;
     }
-    async function fetchFilesPath(urlLocation){
-        let response = await fetch(urlLocation,{
-            method:"GET"
+
+    async function fetchFilesPath(urlLocation) {
+        let response = await fetch(urlLocation, {
+            method: "GET"
         })
-        let data = await  response.json();
+        let data = await response.json();
         return data;
     }
 
