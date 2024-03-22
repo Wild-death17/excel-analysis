@@ -10,7 +10,7 @@ const Storage = multer.diskStorage({
     filename: function (req, file, cb) {
         let dateNtimeStr = `${new Date().toLocaleDateString().replace(/\//g, '.')}`;
         dateNtimeStr += ` ${new Date().toLocaleTimeString().replace(/:/g, '-')}`;
-        cb(null, dateNtimeStr + file.originalname);
+        cb(null, `${dateNtimeStr}  ${file.originalname}`);
     }
 });
 
@@ -32,7 +32,6 @@ async function File_Con(req, res, next) {
     }
     next();
 }
-
 function ReadFile(req, res, next) {
     let filePath = req.body.filePath;
     const WorkBook = xlsx.readFile('./Uploads/' + filePath);
@@ -49,14 +48,13 @@ function DeleteFile(req, res, next){
                 console.error('Error deleting file:', err);
                 return;
             }
-            console.log('File deleted successfully');
+            console.error('File deleted successfully');
         });
     } else {
         console.error('File does not exist');
     }
     next();
 }
-
 function GetFiles(req, res, next) {
     const DirPath = "./Uploads";
     fs.readdir(DirPath, (err, files) => {
@@ -68,7 +66,6 @@ function GetFiles(req, res, next) {
         next();
     })
 }
-
 
 module.exports = {
     fs: fs,

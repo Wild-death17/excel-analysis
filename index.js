@@ -7,6 +7,10 @@ const express = require('express');
 const app = express();
 const port = 2507;
 
+// temporary global array
+global.gasNames = ['Water vapor H2O', 'Carbon dioxide CO2', 'Carbon monoxide CO', 'Nitrous oxide N2O', 'Ammonia NH3', 'Methane CH4'];
+
+
 app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: false}));
