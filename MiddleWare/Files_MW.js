@@ -10,7 +10,7 @@ const Storage = multer.diskStorage({
     filename: function (req, file, cb) {
         let dateNtimeStr = `${new Date().toLocaleDateString().replace(/\//g, '.')}`;
         dateNtimeStr += ` ${new Date().toLocaleTimeString().replace(/:/g, '-')}`;
-        cb(null, dateNtimeStr + file.originalname);
+        cb(null, `${dateNtimeStr}  ${file.originalname}`);
     }
 });
 
@@ -37,10 +37,14 @@ function ReadFile(req, res, next) {
     let filePath = req.body.filePath;
     const WorkBook = xlsx.readFile('./Uploads/' + filePath);
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
-    res.response = xlsx.utils.sheet_to_json(WorkSheet);
+    res.response = xlsx.utils.sheet_to_json(WorkSheet, {
+        raw: false,
+        dateNF: 'HH:mm:ss'
+    });
     next();
 }
-function DeleteFile(req, res, next){
+
+function DeleteFile(req, res, next) {
     let filenameToDelete = req.body.filePath;
     let filePath = './uploads/' + filenameToDelete;
     if (fs.existsSync(filePath)) {
@@ -49,7 +53,7 @@ function DeleteFile(req, res, next){
                 console.error('Error deleting file:', err);
                 return;
             }
-            console.log('File deleted successfully');
+            console.error('File deleted successfully');
         });
     } else {
         console.error('File does not exist');
@@ -69,7 +73,6 @@ function GetFiles(req, res, next) {
     })
 }
 
-
 module.exports = {
     fs: fs,
     xlsx: xlsx,
@@ -78,6 +81,6 @@ module.exports = {
     File_Con: File_Con,
     ReadFile: ReadFile,
     GetFiles: GetFiles,
-    DeleteFile:DeleteFile
+    DeleteFile: DeleteFile
 
 }
