@@ -32,14 +32,19 @@ async function File_Con(req, res, next) {
     }
     next();
 }
+
 function ReadFile(req, res, next) {
     let filePath = req.body.filePath;
     const WorkBook = xlsx.readFile('./Uploads/' + filePath);
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
-    res.response = xlsx.utils.sheet_to_json(WorkSheet);
+    res.response = xlsx.utils.sheet_to_json(WorkSheet, {
+        raw: false,
+        dateNF: 'HH:mm:ss'
+    });
     next();
 }
-function DeleteFile(req, res, next){
+
+function DeleteFile(req, res, next) {
     let filenameToDelete = req.body.filePath;
     let filePath = './uploads/' + filenameToDelete;
     if (fs.existsSync(filePath)) {
@@ -55,6 +60,7 @@ function DeleteFile(req, res, next){
     }
     next();
 }
+
 function GetFiles(req, res, next) {
     const DirPath = "./Uploads";
     fs.readdir(DirPath, (err, files) => {
@@ -75,6 +81,6 @@ module.exports = {
     File_Con: File_Con,
     ReadFile: ReadFile,
     GetFiles: GetFiles,
-    DeleteFile:DeleteFile
+    DeleteFile: DeleteFile
 
 }
