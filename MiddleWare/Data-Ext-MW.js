@@ -12,42 +12,54 @@ async function get_Data_json(req, res, next) {
     for (let raw_item of raw_data) {
         if (raw_item.Time === 'Time') continue;
 
-        reformat_data.Time.push(ConvertToSeconds(raw_item.Time));
+        reformat_data.Time.push(Number(ConvertToSeconds(raw_item.Time)));
         reformat_data.SpectrumFile.push(raw_item.SpectrumFile);
 
         for (let CurrGas of gasNames) {
-            reformat_data[CurrGas].Measurement.push(raw_item[CurrGas]);
+            reformat_data[CurrGas].Measurement.push(Number(raw_item[CurrGas]));
             if (raw_item === raw_data[0]) {
                 if (unit_idx === 0) reformat_data[CurrGas].Unit = raw_item.Unit;
                 else reformat_data[CurrGas].Unit = raw_item[`Unit_${unit_idx++}`];
             }
         }
     }
-    res.response = reformat_data;
+    res.Data_json = reformat_data;
     next();
 }
 
-async function calc_points(req, res, next) {
-    let data = res.response;
+async function calc_Slopes(req, res, next) {
+    let data = res.Data_json;
 
-    let Slopes = {};
+    let Slopes = [];
 
     let initialTime = data.Time[0];
-    for (let CurrTime of data.Time) {
-        CurrTime -= initialTime;
-    }
-    // linear returns NaN Needs Fixing \/
-    for (let CurrGas of gasNames)
-        Slopes[CurrGas] = linear(data[CurrGas].Measurement, data.Time)();
+    for (let i = 0; i < data.Time.length; i++)
+        data.Time[i] = data.Time[i] - initialTime;
 
-    res.response = Slopes;
-    console.log(res.response) // Deleted After Debug of linear
+    for (let CurrGas of gasNames)
+        linear(data[CurrGas].Measurement, data.Time, Slopes[CurrGas] = {});
+    res.Slopes = Slopes;
+    next();
+}
+
+async function get_Points(req, res, next) {
+    let data = res.Data_json;
+
+    let initialTime = data.Time[0];
+    for (let i = 0; i < data.Time.length; i++)
+        data.Time[i] = data.Time[i] - initialTime;
+
+    let Nitrous_oxide_N2O = [];
+    for (let i = 0; i < data.Time.length; i++)
+        Nitrous_oxide_N2O[i] = [data.Time[i],data['Nitrous oxide N2O'].Measurement[i]];
+
+    res.Points = Nitrous_oxide_N2O;
     next();
 }
 
 function ConvertToSeconds(Time) {
-    let temp = Time.split(':')
-    return ((temp[0] * 60) * 60) + (temp[1] * 60) + (temp[2]);
+    let temp = Time.split(':');
+    return Number(temp[0] * 3600) + Number(temp[1] * 60) + Number(temp[2]);
 }
 
 function CreateObject(gasNames) {
@@ -58,5 +70,6 @@ function CreateObject(gasNames) {
 
 module.exports = {
     get_Data_json: get_Data_json,
-    calc_points: calc_points
+    calc_Slopes: calc_Slopes,
+    get_Points: get_Points
 }

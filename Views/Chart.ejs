@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart</title>
+    <style>
+        body {
+            background-color: grey;
+            padding-top: 50px;
+        }
+
+        #chart {
+            margin-top: 100px;
+            background-color: white;
+        }
+
+        select {
+            background-color: bisque;
+            list-style: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <button id="refreshBtn">refresh files</button>
+    <br>
+    <select id="filesArea">
+        <option selected disabled>Select File</option>
+    </select>
+    <div id="chart"></div>
+</center>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    let
+        refBtn = document.getElementById("refreshBtn"),
+        filesArea = document.getElementById("filesArea");
+
+    async function getFile() {
+        let data = await fetchFilesPath("http://localhost:2507/Files/GetFile");
+        let str = "";
+        for (const row of data) {
+            console.log(row)
+            str += `<option onclick="fetchFile('http://localhost:2507/DataText/getPoints',${row})">`;
+            str += `${row}`;
+            str += `</option>`;
+        }
+        filesArea.innerHTML += str;
+    }
+
+    refBtn.addEventListener("click", getFile);
+
+    async function fetchFilesPath(urlLocation) {
+        let response = await fetch(urlLocation, {
+            method: "GET"
+        })
+        return response.json();
+    }
+
+
+    fetchFile('http://localhost:2507/DataText/get_Points', '22.3.2024 10-05-41  Original File.xlsx')
+
+    async function fetchFile(urlLocation, FilePath) {
+        let response = await fetch(urlLocation, {
+            method: "POST",
+            headers: {
+                'content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                filePath: FilePath
+            })
+        })
+        let chartData = await response.json();
+
+        let options1 = {
+            series: [{
+                name: "Gas Reading",
+                data: chartData
+            }],
+            chart: {
+                height: 1000,
+                type: 'scatter',
+                zoom: {
+                    enabled: true,
+                    type: 'xy'
+                }
+            },
+            xaxis: {
+                tickAmount: 10
+
+            },
+            yaxis: {
+                tickAmount: 50
+            }
+        };
+
+
+        let options2 = {
+            series: [{
+                name: 'Gas Reading',
+                data: chartData
+            }
+            ],
+            chart: {
+                height: 500,
+                type: 'line',
+                zoom: {
+                    enabled: true
+                },
+            },
+            title: {text: "Gay Gas"},
+        };
+        let chart = new ApexCharts(document.querySelector("#chart"), options2);
+        chart.render();
+    }
+</script>
+</body>
+</html>
