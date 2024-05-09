@@ -37,7 +37,7 @@ async function calc_Slopes(req, res, next) {
         data.Time[i] = data.Time[i] - initialTime;
 
     for (let CurrGas of gasNames)
-        linear(data[CurrGas].Measurement, data.Time, Slopes[CurrGas] = {});
+        linear(data.Time, data[CurrGas].Measurement, Slopes[CurrGas] = {});
     res.Slopes = Slopes;
     next();
 }
@@ -51,7 +51,7 @@ async function get_Points(req, res, next) {
 
     let Nitrous_oxide_N2O = [];
     for (let i = 0; i < data.Time.length; i++)
-        Nitrous_oxide_N2O[i] = [data.Time[i],data['Nitrous oxide N2O'].Measurement[i]];
+        Nitrous_oxide_N2O[i] = [data.Time[i], data['Nitrous oxide N2O'].Measurement[i]];
 
     res.Points = Nitrous_oxide_N2O;
     next();
