@@ -5,6 +5,9 @@ module.exports = Route;
 Route.post('/UploadFile', [Files_MW.Upload.single('file'), Files_MW.File_Con], (req, res) => {
     res.render('UploadPage.ejs', {pageVal: res.pageVal});
 });
+Route.get('/MainPage', (req, res) => {
+    res.render('MainPage.ejs', {});
+});
 Route.post('/ReadFile', [Files_MW.ReadFile], (req, res) => {
     res.status(200).json(res.response);
 });
