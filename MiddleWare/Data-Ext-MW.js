@@ -28,7 +28,9 @@ async function Extract_Object_From_Exel_Sheet(req, res, next) {
 }
 
 async function Calculate_Gas_Slopes(req, res, next) {
-    let data = req.Data_json;
+    let data = req.Data_json
+    let Start = (req.body.Start === undefined || req.body.Start === "") ? 0 : req.body.Start;
+    let End = (req.body.End === undefined || req.body.End === "") ? data.Time.length : req.body.End;
     let Slopes = {};
 
     let initialTime = data.Time[0];
@@ -36,7 +38,9 @@ async function Calculate_Gas_Slopes(req, res, next) {
         data.Time[i] = data.Time[i] - initialTime;
 
     // Swap 'Nitrous oxide N2O' With Object Loop
-    linear(data.Time, data['Nitrous oxide N2O'].Measurement, Slopes['Nitrous oxide N2O'] = {});
+    let NewTime = data.Time.slice(Start, End)
+    let NewMeasurment = data['Nitrous oxide N2O'].Measurement.slice(Start, End)
+    linear(NewTime, NewMeasurment, Slopes['Nitrous oxide N2O'] = {});
     req.Slopes = Slopes;
     next();
 }
