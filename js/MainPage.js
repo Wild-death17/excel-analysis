@@ -1,6 +1,6 @@
 let NavBox = document.getElementById("NavBox"),
     NavList = document.getElementById("NavList");
-let FileStr = [`<div class="item"><label>Upload File</label><input type="file" name="file" id="UploadFile" onchange="FileMethod.Upload()"></div>`,`<div onclick="FileMethod.Read()" class="item"> Read Files</div>`,`<div onclick="FileMethod.Delete()" class="item"> Delete File </div>`];
+let FileStr = [`<input class="item" type="file" name="file" id="UploadFile" onchange="FileMethod.Upload()">`,`<div onclick="FileMethod.Read()" class="item"> Read Files</div>`,`<div onclick="FileMethod.Delete()" class="item"> Delete File </div>`];
 let FileMethod = {Upload:function(){
     let fileVal = document.getElementById("UploadFile").files[0];
     let Form_Data = new FormData();
@@ -20,11 +20,11 @@ function CreateList(ListArr,List){
     console.log(str);
     List.innerHTML = str;
 }
-NavBox.addEventListener("click",()=>{
-    if (NavList.style.display === "grid") {
-        NavList.style.display = "none";
+function ToggleList(elm){
+    if (elm.style.display === "grid") {
+        elm.style.display = "none";
     }else {
-        NavList.style.display = "grid";
+        elm.style.display = "grid";
 
     }
-});
+}
