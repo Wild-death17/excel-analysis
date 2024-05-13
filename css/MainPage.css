@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+}
+#Wrapper{
+    width: 100%;
+    height: 700px;
+}
+#NavBox{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #626161;
+}
+#NavBox > div{
+    width: 30px;
+    height: 10px;
+    margin-top: 5px;
+    background-color: black;
+}
+
+#NavList{
+    background-color: rgba(58, 38, 38, 0.32);
+    width: 20%;
+    height: 40%;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    display: none;
+    grid-template-rows: auto;
+    grid-template-columns: 100%;
+}
+.item{
+border: black solid 1px;
+}
+#Graph{
+    grid-area: Graph;
+    background-color: #b4b2b2;
+    margin: 50px auto;
+    width: 95%;
+    height: 100%;
+}
