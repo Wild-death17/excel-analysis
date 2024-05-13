@@ -1,10 +1,10 @@
 // npm i ejs body-parser express path fs multer least-squares
 
+const express = require('express');
+const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const express = require('express');
 
-const app = express();
 const port = 2507;
 
 // temporary global array
@@ -34,5 +34,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Now listening on port http://localhost:${port}/`);
+    console.log(`Now listening on port http://localhost:${port}/\n http://localhost:${port}/Files/MainPage`);
 });
