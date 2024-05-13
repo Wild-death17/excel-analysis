@@ -7,17 +7,20 @@
     <link rel="stylesheet" href="/MainPage.css">
 </head>
 <body>
-    <div id="Wrapper">
-        <div id="NavBox" onclick="ToggleList('NavList')">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <div id="NavList">
-        </div>
-        <section id="Graph">
-        </section>
+<div id="Wrapper">
+
+    <div id="NavBox" onclick="ToggleList('NavList')">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-    <script src="/MainPage.js"></script>
+    <div id="NavList" class="List">
+    </div>
+    <section id="Graph">
+        <div onclick="ToggleList('GasesList')" id="GasesBtn">Gases</div>
+        <div class="List" id="GasesList"></div>
+    </section>
+</div>
+<script src="/MainPage.js"></script>
 </body>
 </html>

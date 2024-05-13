@@ -23,13 +23,15 @@
 }
 
 #NavList{
-    background-color: rgba(58, 38, 38, 0.32);
-    width: 20%;
-    height: 40%;
-    position: absolute;
     right: 0;
     top: 50px;
+    width: 20%;
+    height: 40%;
+}
+.List{
+    background-color: rgba(58, 38, 38, 0.32);
     display: none;
+    position: absolute;
     grid-template-rows: auto;
     grid-template-columns: 100%;
 }
@@ -42,4 +44,18 @@ border: black solid 1px;
     margin: 50px auto;
     width: 95%;
     height: 100%;
+}
+#GasesBtn{
+    padding-top: 20px;
+    text-align: center;
+    margin: 0 auto;
+    width: 100px;
+    height:50px;
+    border: black solid 1px;
+}
+#GasesList{
+    width:150px ;
+    height:300px ;
+    margin: 0 auto;
+    position: relative;
 }
