@@ -3,7 +3,8 @@ const express = require('express');
 const Route = express.Router();
 module.exports = Route;
 Route.post('/UploadFile', [Files_MW.Upload.single('file'), Files_MW.File_Con], (req, res) => {
-    res.render('UploadPage.ejs', {pageVal: res.pageVal});
+    res.send("uploaded successfully");
+    res.render('MainPage.ejs');
 });
 Route.get('/MainPage', (req, res) => {
     res.render('MainPage.ejs', {});

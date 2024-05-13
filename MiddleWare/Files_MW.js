@@ -8,6 +8,7 @@ const Storage = multer.diskStorage({
         cb(null, 'Uploads/');
     },
     filename: function (req, file, cb) {
+        console.log(req,file,cb)
         let dateNtimeStr = `${new Date().toLocaleDateString().replace(/\//g, '.')}`;
         dateNtimeStr += ` ${new Date().toLocaleTimeString().replace(/:/g, '-')}`;
         cb(null, `${dateNtimeStr}  ${file.originalname}`);
@@ -24,11 +25,6 @@ async function File_Con(req, res, next) {
     if (!FilePate.endsWith('.xlsx')) {
         fs.unlinkSync(FilePate);
         return res.status(400).json({error: 'Invalid File Format.'});
-    }
-
-    res.pageVal = {
-        msg: "file uploaded successfully!",
-        isUploaded: true
     }
     next();
 }
