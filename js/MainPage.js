@@ -1,7 +1,7 @@
 let NavBox = document.getElementById("NavBox"),
     NavList = document.getElementById("NavList"),
-    GasList = document.getElementById("GasesList");
-let GasesArr = [`<div class="item">mkdj"</div>`,`<div class="item">"kdjd"</div>`,`<div class="item">"ldjdu</div>`];
+    GasList = document.getElementById("Gases");
+let GasesArr = [`<option class="item">mkdj"</option>`,`<option class="item">"kdjd"</option>`,`<option class="item">"ldjdu</option>`];
 let FileStr = [`<input class="item" type="file" name="file" id="UploadFile" onchange="FileMethods.Upload()">`, `<div onclick="FileMethods.Read()" class="item"> Read Files</div>`, `<div onclick="FileMethods.Delete()" class="item"> Delete File </div>`];
 let FileMethods = {
     Upload: async function () {
