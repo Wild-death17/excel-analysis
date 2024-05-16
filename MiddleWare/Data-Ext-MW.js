@@ -1,6 +1,6 @@
 const linear = require('least-squares');
 
-async function get_Data_json(req, res, next) {
+async function Extract_Object_From_Exel_Sheet(req, res, next) {
 
     let raw_data = res.response;
     let reformat_data = CreateObject(gasNames)
@@ -23,27 +23,30 @@ async function get_Data_json(req, res, next) {
             }
         }
     }
-    res.Data_json = reformat_data;
+    req.Data_json = reformat_data;
     next();
 }
 
-async function calc_Slopes(req, res, next) {
-    let data = res.Data_json;
-
-    let Slopes = [];
+async function Calculate_Gas_Slopes(req, res, next) {
+    let data = req.Data_json
+    let Start = (req.body.Start === undefined || req.body.Start === "") ? 0 : req.body.Start;
+    let End = (req.body.End === undefined || req.body.End === "") ? data.Time.length : req.body.End;
+    let Slopes = {};
 
     let initialTime = data.Time[0];
     for (let i = 0; i < data.Time.length; i++)
         data.Time[i] = data.Time[i] - initialTime;
 
-    for (let CurrGas of gasNames)
-        linear(data.Time, data[CurrGas].Measurement, Slopes[CurrGas] = {});
-    res.Slopes = Slopes;
+    // Swap 'Nitrous oxide N2O' With Object Loop
+    let NewTime = data.Time.slice(Start, End)
+    let NewMeasurment = data['Nitrous oxide N2O'].Measurement.slice(Start, End)
+    linear(NewTime, NewMeasurment, Slopes['Nitrous oxide N2O'] = {});
+    req.Slopes = Slopes;
     next();
 }
 
-async function get_Points(req, res, next) {
-    let data = res.Data_json;
+async function Extract_XY_Points(req, res, next) {
+    let data = req.Data_json;
 
     let initialTime = data.Time[0];
     for (let i = 0; i < data.Time.length; i++)
@@ -53,7 +56,7 @@ async function get_Points(req, res, next) {
     for (let i = 0; i < data.Time.length; i++)
         Nitrous_oxide_N2O[i] = [data.Time[i], data['Nitrous oxide N2O'].Measurement[i]];
 
-    res.Points = Nitrous_oxide_N2O;
+    req.Points = Nitrous_oxide_N2O;
     next();
 }
 
@@ -69,7 +72,7 @@ function CreateObject(gasNames) {
 }
 
 module.exports = {
-    get_Data_json: get_Data_json,
-    calc_Slopes: calc_Slopes,
-    get_Points: get_Points
+    Extract_Object_From_Exel_Sheet: Extract_Object_From_Exel_Sheet,
+    Calculate_Gas_Slopes: Calculate_Gas_Slopes,
+    Extract_XY_Points: Extract_XY_Points
 }

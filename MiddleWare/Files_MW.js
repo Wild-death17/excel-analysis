@@ -30,8 +30,8 @@ async function File_Con(req, res, next) {
 }
 
 function ReadFile(req, res, next) {
-    let filePath = req.body.filePath;
-    const WorkBook = xlsx.readFile('./Uploads/' + filePath);
+    let FilePath = req.body.FilePath;
+    const WorkBook = xlsx.readFile('./Uploads/' + FilePath);
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
     res.response = xlsx.utils.sheet_to_json(WorkSheet, {
         raw: false,
@@ -41,10 +41,10 @@ function ReadFile(req, res, next) {
 }
 
 function DeleteFile(req, res, next) {
-    let filenameToDelete = req.body.filePath;
-    let filePath = './uploads/' + filenameToDelete;
-    if (fs.existsSync(filePath)) {
-        fs.unlink(filePath, (err) => {
+    let filenameToDelete = req.body.FilePath;
+    let FilePath = './uploads/' + filenameToDelete;
+    if (fs.existsSync(FilePath)) {
+        fs.unlink(FilePath, (err) => {
             if (err) {
                 console.error('Error deleting file:', err);
                 return;
