@@ -5,6 +5,7 @@ let NavBox = document.getElementById("NavBox"),
     GasList = document.getElementById("Gases");
 let GasesArr = [`<option class="item">mkdj"</option>`, `<option class="item">"kdjd"</option>`, `<option class="item">"ldjdu</option>`];
 let NavListStr = [`<input class="item" type="file" name="file" id="UploadFile" onchange="FileMethods.Upload()">`, `<div onclick="FileMethods.Display()" class="item"> Read Files</div>`, `<div onclick="FileMethods.Delete()" class="item"> Delete File </div>`];
+let Points = [];
 let FileMethods = {
     Upload: async function () {
         let fileVal = document.getElementById("UploadFile");
@@ -22,7 +23,7 @@ let FileMethods = {
     },
     ExtractData: async function (FilePath){
         let GasesStr = [];
-        let data = await fetch("/DataText/Points",{
+        let Response = await fetch("/DataText/Points",{
             method:"POST",
             headers: {
                 'content-Type': 'application/json'
@@ -31,9 +32,10 @@ let FileMethods = {
                 FilePath: FilePath
             })
         })
-        console.log(data.json())
-        for (const dataKey in data) {
-            GasesStr.push(`<option class="item" onclick="">${dataKey}</option>`);
+        Response = await Response.json();
+        Points = Response;
+        for (const dataKey in Response) {
+            GasesStr.push(`<option class="item" value="${dataKey}">${dataKey}</option>`);
         }
         CreateList(GasesStr, GasList);
     },
@@ -94,7 +96,73 @@ function ToggleList(elmId) {
     let elm = document.getElementById(elmId);
     elm.style.display = (elm.style.display === "grid") ? "none" : "grid";
 }
+function DisplayGasGraph(GasName){
+    let Options = {
+        series: [{
+            name: 'XYZ MOTORS',
+            data: Points[GasName]
+        }],
+        chart: {
+            type: 'area',
+            stacked: false,
+            height: 350,
+            zoom: {
+                type: 'x',
+                enabled: true,
+                autoScaleYaxis: true
+            },
+            toolbar: {
+                autoSelected: 'zoom'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        markers: {
+            size: 0,
+        },
+        title: {
+            text: 'Stock Price Movement',
+            align: 'left'
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 90, 100]
+            },
+        },
+        yaxis: {
+            labels: {
+                formatter: function (val) {
+                    return (val / 1000000).toFixed(0);
+                },
+            },
+            title: {
+                text: 'Price'
+            },
+        },
+        xaxis: {
+            type: 'datetime',
+        },
+        tooltip: {
+            shared: false,
+            y: {
+                formatter: function (val) {
+                    return (val / 1000000).toFixed(0)
+                }
+            }
+        }
+    };
+    console.log(Options)
+    let Chart = new ApexCharts(document.querySelector("#Chart"), Options);
+    //console.log(Chart)
+    Chart.render();
 
+}
 async function FetchFilesPath(urlLocation) {
     let response = await fetch(urlLocation, {
         method: "GET"

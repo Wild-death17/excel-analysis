@@ -18,11 +18,14 @@
     <div id="DeleteList" class="List"></div>
     <div id="NavList" class="List">
     </div>
-    <section id="Graph">
-       <select id="Gases">
+    <section   id="Graph">
+       <select onchange="DisplayGasGraph(value)" id="Gases">
         </select>
+    <div id="Chart"></div>
     </section>
 </div>
 <script src="/MainPage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 </body>
 </html>
