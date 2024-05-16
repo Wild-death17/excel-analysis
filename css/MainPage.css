@@ -50,3 +50,15 @@ border: black solid 1px;
     height:50px;
 
 }
+#ReadList{
+    right: 20%;
+    top: 33%;
+    width: 20%;
+    height: 40%;
+}#DeleteList{
+    right: 20%;
+     top: 46%;
+    width: 20%;
+    height: 40%;
+}
+

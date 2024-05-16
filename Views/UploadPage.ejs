@@ -114,7 +114,7 @@
     }
 
     async function deleteFile(FilePath) {
-        if (confirm("do tou wont to delete this file?")) {
+        if (confirm("do you wont to delete this file?")) {
             await fetch("http://localhost:2507/Files/DeleteFile", {
                 method: "DELETE",
                 headers: {
