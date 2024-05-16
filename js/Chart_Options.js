@@ -1,9 +1,8 @@
-let ChartData = await fetch('http://localhost:2507/DataText/Points');
 
 let Option1 = {
     series: [{
         name: "Gas Reading",
-        data: ChartData
+        data: ''
     }],
     chart: {
         height: 500,
@@ -25,7 +24,7 @@ let Option1 = {
 let Option2 = {
     series: [{
         name: 'Gas Reading',
-        data: ChartData
+        data: ''
     }
     ],
     chart: {
@@ -43,8 +42,3 @@ let Option2 = {
         tickAmount: 10
     }
 };
-
-module.exports = {
-    Option1: Option1,
-    Option2: Option2
-}
