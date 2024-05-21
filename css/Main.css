@@ -1,0 +1,71 @@
+:root {
+    --penn-blue: #17235Fff;
+    --royal-blue: #212F73ff;
+    --delft-blue: #243278ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to right, var(--penn-blue), var(--delft-blue));
+}
+
+body .aside {
+    height: 100vh;
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--royal-blue);
+}
+
+.aside .sidebar {
+    padding: 0;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+    text-shadow: 0 0 3px var(--royal-blue), 0 0 5px white;
+}
+
+body .wrapper {
+    float: right;
+    width: 90%;
+    height: 100vh;
+}
+
+.wrapper .header {
+    height: 20%;
+}
+
+.wrapper .view-port {
+    height: 80%;
+    padding: 30px;
+    position: relative;
+    background-color: whitesmoke;
+}
+.view-port #chart{
+    height: auto;
+    width: auto;
+}
+.view-port .grid-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.view-port .grid-container .grid-item {
+    width: 90%;
+    height: 80%;
+    background-color: var(--delft-blue);
+}
