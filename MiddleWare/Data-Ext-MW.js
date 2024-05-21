@@ -60,12 +60,12 @@ async function Calculate_Gas_Slopes(req, res, next) {
 async function Calculate_Specific_Gas_Slope(req, res, next) {
     let data = req.data;
     let Gas = req.body.Gas;
-    let Slope = {};
+    let Slopes = {};
 
     let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
     let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
-    linear(NewTime, NewMeasurement, Slope[Gas] = {});
-    req.Slope = Slope;
+    linear(NewTime, NewMeasurement, Slopes[Gas] = {});
+    req.Slopes = Slopes;
     next();
 }
 
@@ -78,6 +78,18 @@ async function Extract_XY_Points(req, res, next) {
         for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
             Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
     }
+
+    req.Points = Points;
+    next();
+}
+
+async function Extract_Specific_XY_Points(req, res, next) {
+    let data = req.data;
+    let Gas = req.body.Gas;
+    let Points = [];
+
+    for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
+        Points.push([data.Time[i], data[Gas].Measurement[i]]);
 
     req.Points = Points;
     next();
@@ -98,5 +110,6 @@ module.exports = {
     Extract_Object_From_Exel_Sheet: Extract_Object_From_Exel_Sheet,
     Calculate_Gas_Slopes: Calculate_Gas_Slopes,
     Calculate_Specific_Gas_Slope: Calculate_Specific_Gas_Slope,
-    Extract_XY_Points: Extract_XY_Points
+    Extract_XY_Points: Extract_XY_Points,
+    Extract_Specific_XY_Points: Extract_Specific_XY_Points
 }
