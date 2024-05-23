@@ -1,3 +1,13 @@
 <%- include("Top.ejs") %>
-<div>blah blah</div>
+<div id="files">
+    <div id="displayFiles"></div>
+    <div id="uploadFiles">
+        <label for="inputFile" id="dropArea">
+            <input type="file" id="inputFile" hidden="hidden" onchange="FileMethods.Upload()">
+            <div id="uploadView">
+                <p>Drag & drop to upload file <br> or click here</p>
+            </div>
+        </label>
+    </div>
+</div>
 <%- include("Bottom.ejs") %>

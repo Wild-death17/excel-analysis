@@ -5,6 +5,7 @@
 }
 
 * {
+    font-family: 'Poppins',sans-serif;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -52,12 +53,43 @@ body .wrapper {
     position: relative;
     overflow: scroll;
 }
-
+.view-port #gasDropdown{
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 .view-port #chart {
     height: inherit;
     background-color: cornflowerblue;
 }
-
+.view-port #files {
+    padding: 2%;
+    column-gap: 2%;
+    height: inherit;
+    background-color: cornflowerblue;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+#files div{
+    border: 1px white solid;
+    background-color: #b4b2b2;
+}
+#files #dropArea{
+    width: 100%;
+    height: 100%;
+}
+#files #uploadView{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #bbb5ff;
+    background-image:url("/Views/upload-file.png") ; /* not working */
+}
 .view-port .grid-container {
     width: 100%;
     height: 100%;
