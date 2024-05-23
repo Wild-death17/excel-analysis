@@ -1,6 +1,12 @@
 <%- include("Top.ejs") %>
 <div id="files">
-    <div id="displayFiles"></div>
+    <div id="displayFiles">
+        <div class="item">
+            <div class="file">
+            </div>
+        </div>
+
+    </div>
     <div id="uploadFiles">
         <label for="inputFile" id="dropArea">
             <input type="file" id="inputFile" hidden="hidden" onchange="FileMethods.Upload()">

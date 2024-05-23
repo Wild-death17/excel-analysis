@@ -4,6 +4,7 @@
     --delft-blue: #243278ff;
 }
 
+
 * {
     font-family: 'Poppins',sans-serif;
     padding: 0;
@@ -78,6 +79,31 @@ body .wrapper {
 #files div{
     border: 1px white solid;
     background-color: #b4b2b2;
+}
+#files #displayFiles{
+    display: grid;
+    grid-template-columns:repeat(5,auto);
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#files #displayFiles::-webkit-scrollbar {
+    display: none;
+}
+
+
+#displayFiles .item{
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+
+}
+.item .file{
+    width: 70px;
+    height: 70px;
+    background-image: linear-gradient(to right, var(--penn-blue), var(--delft-blue));
 }
 #files #dropArea{
     width: 100%;
