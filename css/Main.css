@@ -96,7 +96,29 @@ body .wrapper {
     display: none;
 }
 
-
+#List{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #a19e9e;
+    display: none;
+    grid-template-columns: auto;
+    z-index: 1;
+}
+#List div:nth-child(1){
+    border-bottom: 1px solid black;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+#List div:nth-child(2){
+    border-bottom-right-radius:inherit;
+    border-bottom-left-radius:inherit;
+}
+#List div:hover{
+   background-color: #c5e7e7;
+}
 #displayFiles .item {
     border: none;
     display: grid;

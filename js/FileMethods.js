@@ -36,7 +36,7 @@ let FileMethods = {
         let data = await FileMethods.Read();
         let str = "";
         for (const filePath of data) {
-            str += `<div class="item">
+            str += `<div class="item" onclick="InteractWithFile('List','${filePath}',event)">
             <div class="file" >
             </div>
             <div class="fileName">${filePath}</div>
