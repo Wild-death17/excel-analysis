@@ -1,4 +1,3 @@
-
 let FileMethods = {
     Upload: async function () {
         let fileVal = document.getElementById("inputFile");
@@ -10,18 +9,15 @@ let FileMethods = {
                 body: formData
             })
         alert("File uploaded successfully");
-        FileMethods.addFileToDeck();
-    },
-    addFileToDeck(){
-
+        await FileMethods.Display();
     },
     Read: async function () {
         return await FileMethods.FetchFilesPath("/Files/GetFile");
     },
-    ExtractData: async function (FilePath){
+    ExtractData: async function (FilePath) {
         let GasesStr = [];
-        let Response = await fetch("/DataText/Points",{
-            method:"POST",
+        let Response = await fetch("/DataText/Points", {
+            method: "POST",
             headers: {
                 'content-Type': 'application/json'
             },
@@ -36,14 +32,17 @@ let FileMethods = {
         }
         CreateList(GasesStr, GasList);
     },
-    Display:async function () {
+    Display: async function () {
         let data = await FileMethods.Read();
         let str = "";
-        for (const path of data) {
-            str += `<div onclick="FileMethods.ExtractData('${path}')" class="item">${path}</div>`;
+        for (const filePath of data) {
+            str += `<div class="item">
+            <div class="file" >
+            </div>
+            <div class="fileName">${filePath}</div>
+        </div>`;
         }
-        ReadList.innerHTML = str;
-        ToggleList("ReadList");
+        document.getElementById('displayFiles').innerHTML = str;
     },
     Delete: async function () {
         let data = await FileMethods.Read();
@@ -55,7 +54,7 @@ let FileMethods = {
         DeleteList.innerHTML = str;
         ToggleList("DeleteList");
     },
-    DeleteFile : async function (FilePath) {
+    DeleteFile: async function (FilePath) {
         if (confirm("do you wont to delete this file?")) {
             await fetch("http://localhost:2507/Files/DeleteFile", {
                 method: "DELETE",
@@ -69,7 +68,7 @@ let FileMethods = {
         }
         await FileMethods.Delete();
     },
-    FetchFilesPath:async function (urlLocation){
+    FetchFilesPath: async function (urlLocation) {
         let response = await fetch(urlLocation, {
             method: "GET"
         })
