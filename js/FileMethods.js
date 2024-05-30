@@ -3,12 +3,13 @@ let FileMethods = {
         let fileVal = document.getElementById("inputFile");
         const formData = new FormData();
         formData.append('file', fileVal.files[0]);
-        await fetch("/Files/UploadFile"
+        let response = await fetch("/Files/UploadFile"
             , {
                 method: 'POST',
                 body: formData
             })
-        alert("File uploaded successfully");
+        let responseObject = await response.json();
+        alert(responseObject.msg);
         await FileMethods.Display();
     },
     Read: async function () {
