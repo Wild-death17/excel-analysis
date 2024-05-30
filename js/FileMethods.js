@@ -32,9 +32,9 @@ let FileMethods = {
         let data = await FileMethods.Read();
         let str = "";
         for (const filePath of data) {
-            str += `<div class="item" onclick="InteractWithFile('List','${filePath}',event)">
+            str += `<div class="item" oncontextmenu="InteractWithFile('${filePath}',event)">
             <div class="file"  >
-            <i class="fa fa-file"></i>
+            <img alt="file img" src="/images/FileIcon.png">
             </div>
             <div class="fileName">${filePath}</div>
         </div>`;
