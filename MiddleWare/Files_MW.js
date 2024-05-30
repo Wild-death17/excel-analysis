@@ -42,6 +42,7 @@ function ReadFile(req, res, next) {
 
 function DeleteFile(req, res, next) {
     let filenameToDelete = req.body.FilePath;
+    console.log(filenameToDelete)
     let FilePath = './uploads/' + filenameToDelete;
     if (fs.existsSync(FilePath)) {
         fs.unlink(FilePath, (err) => {
