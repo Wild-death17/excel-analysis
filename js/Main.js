@@ -1,6 +1,7 @@
 let DropArea = document.getElementById("dropArea"),
     InputFile = document.getElementById("inputFile");
 FileMethods.Display();
+CreateInteractList('List');
 DropArea.addEventListener("dragover", async function (e) {
     e.preventDefault();
     await FileMethods.Upload();
@@ -10,18 +11,32 @@ DropArea.addEventListener("drop", async function (e) {
     InputFile.files = e.dataTransfer.files;
     await FileMethods.Upload();
 })
-
-
-function InteractWithFile(elmId, path, e) {
-    ToggleList(elmId);
+function CreateInteractList(elmId){
     let List = document.getElementById(elmId);
-
-    let str = `<div onclick="FileMethods.DeleteFile('${path}')">delete</div> <div onclick="FileMethods.ExtractData('${path}')">display data</div>`;
+    let str = `<div id="DeleteBtn">delete</div> <div id="ExtractBtn">display data</div>`;
     List.innerHTML = str;
-    List.style.top = `${e.clientY}px`;
-    List.style.left = `${e.clientX - List.offsetWidth}px`;
 }
 
+function InteractWithFile(path, e) {
+    ToggleList('List');
+    e.preventDefault();
+    let List = document.getElementById('List'),
+    Delete = document.getElementById('DeleteBtn'),
+    Extract = document.getElementById('ExtractBtn');
+    List.style.top = `${e.clientY}px`;
+    List.style.left = `${e.clientX - List.offsetWidth}px`;
+    console.log(List.offsetWidth)
+
+    Delete.addEventListener("click",()=>{
+        FileMethods.ExtractData(path);
+    });
+    Extract.addEventListener("click",()=>{
+        FileMethods.DeleteFile(path);
+    });
+}
+window.addEventListener("click" ,() =>{
+    HideList('List');
+})
 function HideList(elmId){
     document.getElementById(elmId).style.display = "none";
 }
@@ -30,5 +45,6 @@ function ToggleList(elmId) {
     elm.style.display = "none";
     elm.style.display = (elm.style.display === "grid") ? "none" : "grid";
 }
+
 
 
