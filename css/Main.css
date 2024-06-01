@@ -1,0 +1,69 @@
+@import "Files.css";
+@import "Chart.css";
+@import "Dashboard.css";
+
+:root {
+    --penn-blue: #17235Fff;
+    --royal-blue: #212F73ff;
+    --delft-blue: #243278ff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-image: linear-gradient(to right, var(--penn-blue), var(--delft-blue));
+}
+
+body .Aside {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--royal-blue);
+}
+
+.Aside .Sidebar {
+    padding: 0;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+}
+
+body .Wrapper {
+    float: right;
+    width: 90%;
+    height: 100%;
+}
+
+.Wrapper .Header {
+    height: 20%;
+}
+
+.Wrapper .View-Port {
+    height: 80%;
+    padding: 30px;
+    position: relative;
+    overflow: scroll;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 0 3px var(--royal-blue), 0 0 5px white;
+}
+
+a:hover {
+    font-size: large;
+    text-shadow: 0 0 5px var(--royal-blue), 0 0 7px white;
+}
