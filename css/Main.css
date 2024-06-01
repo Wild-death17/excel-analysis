@@ -1,3 +1,7 @@
+@import "Files.css";
+@import "Chart.css";
+@import "Dashboard.css";
+
 :root {
     --penn-blue: #17235Fff;
     --royal-blue: #212F73ff;
@@ -15,7 +19,7 @@ body {
     background-image: linear-gradient(to right, var(--penn-blue), var(--delft-blue));
 }
 
-body .aside {
+body .Aside {
     width: 10%;
     height: 100%;
     display: flex;
@@ -25,7 +29,7 @@ body .aside {
     background-color: var(--royal-blue);
 }
 
-.aside .sidebar {
+.Aside .Sidebar {
     padding: 0;
     height: 50%;
     display: flex;
@@ -36,42 +40,21 @@ body .aside {
     color: white;
 }
 
-body .wrapper {
+body .Wrapper {
     float: right;
     width: 90%;
     height: 100%;
 }
 
-.wrapper .header {
+.Wrapper .Header {
     height: 20%;
 }
 
-.wrapper .view-port {
+.Wrapper .View-Port {
     height: 80%;
     padding: 30px;
     position: relative;
     overflow: scroll;
-}
-
-.view-port #chart {
-    height: inherit;
-    background-color: cornflowerblue;
-}
-
-.view-port .grid-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto auto;
-    align-items: center;
-    justify-items: center;
-}
-
-.view-port .grid-container .grid-item {
-    width: 90%;
-    height: 80%;
-    background-color: var(--delft-blue);
 }
 
 a {
