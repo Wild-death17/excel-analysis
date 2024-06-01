@@ -31,7 +31,7 @@ async function Display() {
     str += '</select>';
 
     Header.innerHTML = str;
-    Chart = new ApexCharts(document.querySelector("#Chart"), options);
+    Chart = new ApexCharts(document.querySelector(".Chart"), options);
     Chart.render();
 }
 
