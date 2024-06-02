@@ -32,14 +32,14 @@ let FileMethods = {
         let data = await FileMethods.Read();
         let str = "";
         for (const filePath of data) {
-            str += `<div class="item" oncontextmenu="InteractWithFile('${filePath}',event)">
-            <div class="file"  >
+            str += `<div class="Item" oncontextmenu="InteractWithFile('${filePath}',event)">
+            <div class="File"  >
             <img alt="file img" src="/images/FileIcon.png">
             </div>
             <div class="fileName">${filePath}</div>
         </div>`;
         }
-        document.getElementById('displayFiles').innerHTML = str;
+        document.getElementById('DisplayFiles').innerHTML = str;
     },
     DeleteFile: async function (FilePath) {
         if (confirm("do you wont to delete this file?")) {

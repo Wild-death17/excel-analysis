@@ -1,5 +1,5 @@
 let DropArea = document.getElementById("DropArea"),
-    InputFile = document.getElementById("inputFile");
+    InputFile = document.getElementById("InputFile");
 FileMethods.Display();
 CreateInteractList('List');
 DropArea.addEventListener("dragover", async function (e) {
@@ -21,8 +21,8 @@ function InteractWithFile(path, e) {
     ToggleList('List');
     e.preventDefault();
     let List = document.getElementById('List'),
-    Delete = document.getElementById('DeleteBtn'),
-    Extract = document.getElementById('ExtractBtn');
+        Delete = document.getElementById('DeleteBtn'),
+        Extract = document.getElementById('ExtractBtn');
     List.style.top = `${e.clientY}px`;
     List.style.left = `${e.clientX - List.offsetWidth}px`;
     console.log(List.offsetWidth)
