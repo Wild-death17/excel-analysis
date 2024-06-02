@@ -28,10 +28,11 @@ function InteractWithFile(path, e) {
     console.log(List.offsetWidth)
 
     Delete.addEventListener("click",()=>{
-        FileMethods.ExtractData(path);
+        console.log("r")
+        FileMethods.DeleteFile(path);
     });
     Extract.addEventListener("click",()=>{
-        FileMethods.DeleteFile(path);
+        FileMethods.ExtractData(path);
     });
 }
 window.addEventListener("click" ,() =>{

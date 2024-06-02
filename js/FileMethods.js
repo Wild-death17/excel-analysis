@@ -53,7 +53,6 @@ let FileMethods = {
                 })
             })
         }
-        HideList('List');
         await FileMethods.Display();
     },
     FetchFilesPath: async function (urlLocation) {
