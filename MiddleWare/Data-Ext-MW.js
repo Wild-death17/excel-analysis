@@ -57,22 +57,9 @@ async function Calculate_Gas_Slopes(req, res, next) {
     next();
 }
 
-async function Calculate_Specific_Gas_Slope(req, res, next) {
-    let data = req.data;
-    let Gas = req.body.Gas;
-    let Slopes = {};
-
-    let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
-    let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
-    linear(NewTime, NewMeasurement, Slopes[Gas] = {});
-    req.Slopes = Slopes;
-    next();
-}
-
 async function Extract_XY_Points(req, res, next) {
     let data = req.data;
     let Points = {};
-
     for (let Gas of gasNames) {
         Points[Gas] = [];
         for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
@@ -83,15 +70,15 @@ async function Extract_XY_Points(req, res, next) {
     next();
 }
 
-async function Extract_Specific_XY_Points(req, res, next) {
-    let data = req.data;
-    let Gas = req.body.Gas;
-    let Points = [];
-
-    for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
-        Points.push([data.Time[i], data[Gas].Measurement[i]]);
-
-    req.Points = Points;
+async function Get_Chart_Series(req, res, next) {
+    let data = req.Points;
+    let Series = {};
+    for (let item in data)
+        Series[item] = [{
+            name: `${item}`,
+            data: data[item]
+        }];
+    req.Series = Series;
     next();
 }
 
@@ -109,7 +96,6 @@ function CreateObject(gasNames) {
 module.exports = {
     Extract_Object_From_Exel_Sheet: Extract_Object_From_Exel_Sheet,
     Calculate_Gas_Slopes: Calculate_Gas_Slopes,
-    Calculate_Specific_Gas_Slope: Calculate_Specific_Gas_Slope,
     Extract_XY_Points: Extract_XY_Points,
-    Extract_Specific_XY_Points: Extract_Specific_XY_Points
+    Get_Chart_Series: Get_Chart_Series
 }

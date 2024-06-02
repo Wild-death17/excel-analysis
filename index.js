@@ -1,4 +1,6 @@
-// npm i ejs body-parser express path fs multer least-squares apexcharts
+
+// npm i ejs body-parser express path fs multer xlsx least-squares apexcharts
+
 
 const express = require('express');
 const app = express();
@@ -25,6 +27,7 @@ const FileRoute = require('./Route/File-Route');
 app.use('/DataText', DataRoute);
 app.use('/Files', FileRoute);
 app.get('/', (req, res) => {
+
     res.render('Dashboard.ejs')
 })
 app.get('//', (req, res) => {
@@ -32,6 +35,7 @@ app.get('//', (req, res) => {
 })
 app.get('///', (req, res) => {
     res.render('Files.ejs')
+
 })
 
 
