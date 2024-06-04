@@ -77,14 +77,17 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns:repeat(5,auto) ;
-    grid-template-rows:repeat(5,auto) ;
+    grid-template-columns:repeat(5,20%) ;
+    grid-template-rows:repeat(5,20%) ;
     text-align: center;
     border: 2px dashed #bbb5ff;
 }
 #DropArea img{
-    grid-area: 3/3/5/5;
+    width: 100%;
+    height: 100%;
+    grid-area: 2/2/5/5;
 }
 #DropArea #UploadPar{
+    font-size: x-large;
     grid-area: 5/1/6/6;
 }
