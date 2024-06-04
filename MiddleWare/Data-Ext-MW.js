@@ -3,7 +3,7 @@ const linear = require('least-squares');
 async function Extract_Object_From_Exel_Sheet(req, res, next) {
 
     let Raw_Data = res.response;
-    let Reformat_Data = CreateObject(gasNames);
+    let Reformat_Data = CreateObject(GasNames);
 
     Reformat_Data.Date = Raw_Data[0].Date;
 
@@ -20,7 +20,7 @@ async function Extract_Object_From_Exel_Sheet(req, res, next) {
         Reformat_Data.Time.push(Number(ConvertToSeconds(Raw_Item.Time)));
         Reformat_Data.SpectrumFile.push(Raw_Item.SpectrumFile);
 
-        for (let Curr_Gas of gasNames) {
+        for (let Curr_Gas of GasNames) {
 
             Reformat_Data[Curr_Gas].Measurement.push(Number(Raw_Item[Curr_Gas]));
 
@@ -47,7 +47,7 @@ async function Calculate_Gas_Slopes(req, res, next) {
     let data = req.data;
     let Slopes = {};
 
-    for (let Gas of gasNames) {
+    for (let Gas of GasNames) {
         let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
         let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
         linear(NewTime, NewMeasurement, Slopes[Gas] = {});
@@ -60,7 +60,7 @@ async function Calculate_Gas_Slopes(req, res, next) {
 async function Extract_XY_Points(req, res, next) {
     let data = req.data;
     let Points = {};
-    for (let Gas of gasNames) {
+    for (let Gas of GasNames) {
         Points[Gas] = [];
         for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
             Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
@@ -82,6 +82,15 @@ async function Get_Chart_Series(req, res, next) {
     next();
 }
 
+async function Get_Exp_Start_End(req, res, next) {
+    let data = req.data;
+    req.StartEnd = {
+        ExpStartTime: data.ExpStartTime,
+        ExpEndTime: data.ExpEndTime
+    }
+    next();
+}
+
 function ConvertToSeconds(Time) {
     let temp = Time.split(':');
     return Number(temp[0] * 3600) + Number(temp[1] * 60) + Number(temp[2]);
@@ -97,5 +106,6 @@ module.exports = {
     Extract_Object_From_Exel_Sheet: Extract_Object_From_Exel_Sheet,
     Calculate_Gas_Slopes: Calculate_Gas_Slopes,
     Extract_XY_Points: Extract_XY_Points,
-    Get_Chart_Series: Get_Chart_Series
+    Get_Chart_Series: Get_Chart_Series,
+    Get_Exp_Start_End: Get_Exp_Start_End
 }

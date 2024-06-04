@@ -34,7 +34,7 @@ async function File_Con(req, res, next) {
 }
 
 function ReadFile(req, res, next) {
-    let FilePath = req.body.FilePath;
+    let FilePath = MainFilePath;
     const WorkBook = xlsx.readFile('./Uploads/' + FilePath);
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
     res.response = xlsx.utils.sheet_to_json(WorkSheet, {
@@ -45,7 +45,7 @@ function ReadFile(req, res, next) {
 }
 
 function DeleteFile(req, res, next) {
-    let filenameToDelete = req.body.FilePath;
+    let filenameToDelete = MainFilePath;
     let FilePath = './uploads/' + filenameToDelete;
     if (fs.existsSync(FilePath)) {
         fs.unlink(FilePath, (err) => {
