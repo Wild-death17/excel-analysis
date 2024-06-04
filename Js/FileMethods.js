@@ -1,6 +1,6 @@
 let FileMethods = {
     Upload: async function () {
-        let fileVal = document.getElementById("inputFile");
+        let fileVal = document.getElementById("InputFile");
         const formData = new FormData();
         formData.append('file', fileVal.files[0]);
         let response = await fetch("/Files/UploadFile"
@@ -32,9 +32,9 @@ let FileMethods = {
         let data = await FileMethods.Read();
         let str = "";
         for (const filePath of data) {
-            str += `<div class="Item" oncontextmenu="InteractWithFile('${filePath}',event)">
+            str += `<div class="Item" oncontextmenu="InteractWithFile('List','${filePath}',event)">
             <div class="File"  >
-            <img alt="file img" src="/images/FileIcon.png">
+            <img alt="file img" src="/FileIcon.png">
             </div>
             <div class="fileName">${filePath}</div>
         </div>`;

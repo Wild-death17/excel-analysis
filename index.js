@@ -17,7 +17,8 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(express.static(path.join(__dirname, "Public")));
+
+app.use(express.static(path.join(__dirname, "Imgs")));
 app.use(express.static(path.join(__dirname, "Css")));
 app.use(express.static(path.join(__dirname, "Js")));
 
