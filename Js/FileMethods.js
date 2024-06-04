@@ -17,7 +17,7 @@ let FileMethods = {
     },
     ExtractData: async function (FilePath) {
         HideList('List');
-        let Response = await fetch("/DataText/Points", {
+        let Response = await fetch("/Files/ChangeFile", {
             method: "POST",
             headers: {
                 'content-Type': 'application/json'

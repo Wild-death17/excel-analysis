@@ -70,6 +70,10 @@ function GetFiles(req, res, next) {
         next();
     })
 }
+function ChangeFileTmpMw(req, res, next){
+    MainFilePath = req.body.FilePath;
+    next();
+}
 
 module.exports = {
     fs: fs,
@@ -79,6 +83,7 @@ module.exports = {
     File_Con: File_Con,
     ReadFile: ReadFile,
     GetFiles: GetFiles,
-    DeleteFile: DeleteFile
+    DeleteFile: DeleteFile,
+    ChangeFileTmpMw:ChangeFileTmpMw
 
 }

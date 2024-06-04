@@ -14,3 +14,7 @@ Route.get('/GetFile', [Files_MW.GetFiles], (req, res) => {
 Route.delete('/DeleteFile', [Files_MW.DeleteFile], (req, res) => {
     res.redirect('/GetFile');
 });
+Route.post('/ChangeFile', [Files_MW.ChangeFileTmpMw], (req, res) => {
+    res.redirect('http://localhost:2507//');
+});
+
