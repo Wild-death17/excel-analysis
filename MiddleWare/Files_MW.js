@@ -8,7 +8,6 @@ const Storage = multer.diskStorage({
         cb(null, 'Uploads/');
     },
     filename: function (req, file, cb) {
-        console.log(req,file,cb)
         let dateNtimeStr = `${new Date().toLocaleDateString().replace(/\//g, '.')}`;
         dateNtimeStr += ` ${new Date().toLocaleTimeString().replace(/:/g, '-')}`;
         cb(null, `${dateNtimeStr}  ${file.originalname}`);
@@ -31,7 +30,7 @@ async function File_Con(req, res, next) {
 }
 
 function ReadFile(req, res, next) {
-    let FilePath = req.body.FilePath;
+    let FilePath = MainFilePath;
     const WorkBook = xlsx.readFile('./Uploads/' + FilePath);
     const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
     res.response = xlsx.utils.sheet_to_json(WorkSheet, {
@@ -42,8 +41,7 @@ function ReadFile(req, res, next) {
 }
 
 function DeleteFile(req, res, next) {
-    let filenameToDelete = req.body.FilePath;
-    console.log(filenameToDelete)
+    let filenameToDelete = MainFilePath;
     let FilePath = './uploads/' + filenameToDelete;
     if (fs.existsSync(FilePath)) {
         fs.unlink(FilePath, (err) => {

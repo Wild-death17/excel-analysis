@@ -11,7 +11,7 @@ Route.post('/ReadFile', [Files_MW.ReadFile], (req, res) => {
 Route.get('/GetFile', [Files_MW.GetFiles], (req, res) => {
     res.status(200).json(res.filesPathStr);
 });
-Route.delete('/DeleteFile', [Files_MW.DeleteFile], (req, res) => {
+Route.delete('/DeleteFile', [Files_MW.ChangeFileTmpMw,Files_MW.DeleteFile], (req, res) => {
     res.redirect('/GetFile');
 });
 Route.post('/ChangeFile', [Files_MW.ChangeFileTmpMw], (req, res) => {
