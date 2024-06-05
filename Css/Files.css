@@ -52,6 +52,7 @@
 }
 #DisplayFiles .Item {
     border: none;
+    margin: 10%;
     display: grid;
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: repeat(3, 33%);

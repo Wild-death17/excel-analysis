@@ -10,6 +10,7 @@ let FileMethods = {
             })
         let responseObject = await response.json();
         alert(responseObject.msg);
+        fileVal.value = '';
         await FileMethods.Display();
     },
     Read: async function () {
