@@ -22,13 +22,15 @@ async function LoadPage() {
     Series = await GetSeries()
     StartEnd = await GetStartEnd()
 
-    let str = '<select onchange="RenderChart(value)"  name="GasSelector" id="GasSelector">';
+    let str = '<div class ="ChartSelectContainer">';
+        str += '<select class="ChartSelect" onchange="RenderChart(value)"  name="GasSelector" id="GasSelector">';
     str += '<option selected disabled>Please Select Gas</option>'
     for (let GasName in Series)
         str += `<option value="${GasName}">${GasName}</option>`;
-    str += '</select>';
+    str += '</select></div>';
 
     Header.innerHTML = str;
+
     Chart = new ApexCharts(document.querySelector(".Chart"), options);
     await Chart.render();
 }
