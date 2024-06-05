@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const port = 2507;
 
 // temporary global array
-global.gasNames = ['Water vapor H2O', 'Carbon dioxide CO2', 'Carbon monoxide CO', 'Nitrous oxide N2O', 'Ammonia NH3', 'Methane CH4'];
+global.GasNames = ['Water vapor H2O', 'Carbon dioxide CO2', 'Carbon monoxide CO', 'Nitrous oxide N2O', 'Ammonia NH3', 'Methane CH4'];
 global.MainFilePath = "23.5.2024 20-53-48  20200331.xlsx";
 
 app.use(express.json());

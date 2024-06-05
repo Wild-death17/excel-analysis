@@ -26,6 +26,8 @@
 }
 
 #List{
+    text-align: center;
+    font-size: larger;
     position: absolute;
     width: 100px;
     height: 100px;
