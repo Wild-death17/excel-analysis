@@ -58,13 +58,30 @@ async function Calculate_Gas_Slopes(req, res, next) {
 }
 
 async function Extract_XY_Points(req, res, next) {
+
     let data = req.data;
     let Points = {};
-    for (let Gas of GasNames) {
+
+    if (req.body.Gas) {
+
+        let Gas = req.body.Gas;
+
+        if (!data[Gas]) {
+            return res.status(400).json({error: "Couldn't Find Gas."})
+        }
+
         Points[Gas] = [];
         for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
             Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
-    }
+
+    } else
+        for (let Gas of GasNames) {
+
+            Points[Gas] = [];
+
+            for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
+                Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
+        }
 
     req.Points = Points;
     next();
