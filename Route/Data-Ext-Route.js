@@ -14,3 +14,6 @@ Route.post('/Slopes', [FileMW.ReadFile, DataExtMW.Extract_Object_From_Exel_Sheet
 Route.post('/ChartSeries', [FileMW.ReadFile, DataExtMW.Extract_Object_From_Exel_Sheet, DataExtMW.Extract_XY_Points, DataExtMW.Get_Chart_Series], (req, res) => {
     res.status(200).json(req.Series)
 });
+Route.post('/ExpStartEnd', [FileMW.ReadFile, DataExtMW.Extract_Object_From_Exel_Sheet, DataExtMW.Get_Exp_Start_End], (req, res) => {
+    res.status(200).json(req.StartEnd)
+});

@@ -1,14 +1,15 @@
 .View-Port #Files {
     padding: 2%;
     column-gap: 2%;
-    height: inherit;
-    background-color: cornflowerblue;
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
 
 #Files div {
-    background-color: #b4b2b2;
+    border-radius: 10px 10px 10px 10px;
+    background-color: lightgrey;
 }
 
 #Files #DisplayFiles {
@@ -60,7 +61,7 @@
 }
 
 .Item .File {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 1/ 1 / 3 / 4;
 }
 
 .Item .fileName {
@@ -77,10 +78,14 @@
     width: 100%;
     height: 100%;
     display: grid;
+    border-radius: inherit;
     grid-template-columns:repeat(5,20%) ;
     grid-template-rows:repeat(5,20%) ;
     text-align: center;
     border: 2px dashed #bbb5ff;
+}
+#Files #DropArea:hover {
+    border: 10px dashed lightgray;
 }
 #DropArea img{
     width: 100%;
