@@ -44,11 +44,12 @@ async function GetStartEnd() {
 }
 
 function RenderChart(GasName) {
-    Chart.updateSeries(Series[GasName], true);
-    let Append = [Series[GasName][0].data[StartEnd.ExpStartTime], Series[GasName][0].data[StartEnd.ExpEndTime - 1]]
-    let NewSeries = {
+
+    let NewSeries = [Series[GasName],
+        {
         name: 'Slope-Intercept',
-        data: Append
-    }
-    Chart.appendSeries(NewSeries, true);
+        data: [Series[GasName].data[StartEnd.ExpStartTime], Series[GasName].data[StartEnd.ExpEndTime - 1]]
+    }];
+    Chart.updateSeries(NewSeries, true);
+    Chart.toggleSeries('Slope-Intercept');
 }

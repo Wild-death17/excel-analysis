@@ -74,10 +74,10 @@ async function Get_Chart_Series(req, res, next) {
     let data = req.Points;
     let Series = {};
     for (let item in data)
-        Series[item] = [{
+        Series[item] = {
             name: `${item}`,
             data: data[item]
-        }];
+        };
     req.Series = Series;
     next();
 }
