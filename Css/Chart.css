@@ -2,17 +2,17 @@
     width: 100%;
     height: 100%;
     background-color: lightgrey;
-    overflow: scroll;
     border-radius: 10px 10px 10px 10px;
 }
 
-
-.Wrapper .Header {
+.Wrapper .Header .ChartSelectContainer {
+    width: 100%;
+    height: 100%;
     display: flex;
-    padding: 30px;
+    padding-left: 30px;
 }
 
-.Wrapper .Header select {
+.Wrapper .Header .ChartSelect {
     border-radius: 5px 5px 5px 5px;
     justify-self: start;
     align-self: end;
