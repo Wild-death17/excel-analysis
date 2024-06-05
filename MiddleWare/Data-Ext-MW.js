@@ -47,11 +47,25 @@ async function Calculate_Gas_Slopes(req, res, next) {
     let data = req.data;
     let Slopes = {};
 
-    for (let Gas of GasNames) {
+    if (req.body.Gas) {
+
+        let Gas = req.body.Gas;
+
+        if (!data[Gas]) {
+            return res.status(400).json({error: "Couldn't Find Gas."})
+        }
+
+        Slopes[Gas] = [];
         let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
         let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
         linear(NewTime, NewMeasurement, Slopes[Gas] = {});
-    }
+
+    } else
+        for (let Gas of GasNames) {
+            let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
+            let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
+            linear(NewTime, NewMeasurement, Slopes[Gas] = {});
+        }
 
     req.Slopes = Slopes;
     next();
