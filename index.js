@@ -9,13 +9,14 @@ const port = 2507;
 
 // temporary global array
 global.GasNames = ['Water vapor H2O', 'Carbon dioxide CO2', 'Carbon monoxide CO', 'Nitrous oxide N2O', 'Ammonia NH3', 'Methane CH4'];
-global.MainFilePath = '22.3.2024 10-05-41  Original File.xlsx';
+global.MainFilePath = "23.5.2024 20-53-48  20200331.xlsx";
 
 app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(express.static(path.join(__dirname, "Public")));
+
+app.use(express.static(path.join(__dirname, "Imgs")));
 app.use(express.static(path.join(__dirname, "Css")));
 app.use(express.static(path.join(__dirname, "Js")));
 

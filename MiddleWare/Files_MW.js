@@ -17,18 +17,14 @@ const Storage = multer.diskStorage({
 const Upload = multer({storage: Storage});
 
 async function File_Con(req, res, next) {
-    if (!req.file)
-        return res.status(400).json({error: 'No File Uploaded.'})
+    if (!req.file){
+        return res.json({msg: 'No File Uploaded.'})
+    }
     const FilePate = req.file.path;
 
     if (!FilePate.endsWith('.xlsx')) {
         fs.unlinkSync(FilePate);
-        return res.status(400).json({error: 'Invalid File Format.'});
-    }
-
-    res.pageVal = {
-        msg: "file uploaded successfully!",
-        isUploaded: true
+        return res.json({msg: 'Invalid File Format.'});
     }
     next();
 }
@@ -72,6 +68,10 @@ function GetFiles(req, res, next) {
         next();
     })
 }
+function ChangeFileTmpMw(req, res, next){
+    MainFilePath = req.body.FilePath;
+    next();
+}
 
 module.exports = {
     fs: fs,
@@ -81,6 +81,7 @@ module.exports = {
     File_Con: File_Con,
     ReadFile: ReadFile,
     GetFiles: GetFiles,
-    DeleteFile: DeleteFile
+    DeleteFile: DeleteFile,
+    ChangeFileTmpMw:ChangeFileTmpMw
 
 }

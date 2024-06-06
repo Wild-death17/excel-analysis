@@ -1,2 +1,16 @@
 <%- include("Top.ejs") %>
+<div id="List"></div>
+<div id="Files">
+    <div id="DisplayFiles">
+    </div>
+    <div id="UploadFiles">
+        <label for="InputFile" id="DropArea">
+            <input type="file" id="InputFile" hidden="hidden" oninput="FileMethods.Upload()">
+                <img src="/UploadIcon.png" alt="Upload file">
+                <div id="UploadPar">Drag & drop to upload file <br> or click here</div>
+        </label>
+    </div>
+</div>
+<script defer src="/FileMethods.js"></script>
+<script defer src="/Files.js"></script>
 <%- include("Bottom.ejs") %>
