@@ -2,43 +2,41 @@ const linear = require('least-squares');
 
 async function Extract_Object_From_Exel_Sheet(req, res, next) {
 
-    let Raw_Data = res.response;
-    let Reformat_Data = CreateObject(GasNames);
+    let RawData = res.response;
+    let ReformatData = CreateObject(GasNames);
 
-    Reformat_Data.Date = Raw_Data[0].Date;
+    ReformatData.Date = RawData[0].Date;
 
-    Reformat_Data.LibraryFile = Raw_Data[0].LibraryFile;
+    ReformatData.LibraryFile = RawData[0].LibraryFile;
 
-    //Reformat_Data.ExpStartTime = 0;
-    Reformat_Data.ExpStartTime = (req.body.ExpStartTime === undefined || req.body.ExpStartTime === "") ? 0 : req.body.ExpStartTime;
+    ReformatData.ExpStartTime = (req.body.ExpStartTime === undefined || req.body.ExpStartTime === "") ? 0 : req.body.ExpStartTime;
 
     let Unit_Idx = 0;
-    for (let Raw_Item of Raw_Data) {
+    for (let Raw_Item of RawData) {
 
         if (Raw_Item.Time === 'Time') continue;
 
-        Reformat_Data.Time.push(Number(ConvertToSeconds(Raw_Item.Time)));
-        Reformat_Data.SpectrumFile.push(Raw_Item.SpectrumFile);
+        ReformatData.Time.push(Number(ConvertToSeconds(Raw_Item.Time)));
+        ReformatData.SpectrumFile.push(Raw_Item.SpectrumFile);
 
         for (let Curr_Gas of GasNames) {
 
-            Reformat_Data[Curr_Gas].Measurement.push(Number(Raw_Item[Curr_Gas]));
+            ReformatData[Curr_Gas].Measurement.push(Number(Raw_Item[Curr_Gas]));
 
-            if (Raw_Item === Raw_Data[0])
-                if (Unit_Idx === 0) Reformat_Data[Curr_Gas].Unit = Raw_Item.Unit;
-                else Reformat_Data[Curr_Gas].Unit = Raw_Item[`Unit_${Unit_Idx++}`];
+            if (Raw_Item === RawData[0])
+                if (Unit_Idx === 0) ReformatData[Curr_Gas].Unit = Raw_Item.Unit;
+                else ReformatData[Curr_Gas].Unit = Raw_Item[`Unit_${Unit_Idx++}`];
 
         }
     }
 
-    let initialTime = Reformat_Data.Time[0];
-    for (let i = 0; i < Reformat_Data.Time.length; i++)
-        Reformat_Data.Time[i] = Reformat_Data.Time[i] - initialTime;
+    let initialTime = ReformatData.Time[0];
+    for (let i = 0; i < ReformatData.Time.length; i++)
+        ReformatData.Time[i] = ReformatData.Time[i] - initialTime;
 
-    //Reformat_Data.ExpEndTime = Reformat_Data.Time.length;
-    Reformat_Data.ExpEndTime = (req.body.ExpEndTime === undefined || req.body.ExpEndTime === "") ? Reformat_Data.Time.length : req.body.ExpEndTime;
+    ReformatData.ExpEndTime = (req.body.ExpEndTime === undefined || req.body.ExpEndTime === "") ? ReformatData.Time.length : req.body.ExpEndTime;
 
-    req.data = Reformat_Data;
+    req.data = ReformatData;
     next();
 }
 
@@ -51,21 +49,23 @@ async function Calculate_Gas_Slopes(req, res, next) {
 
         let Gas = req.body.Gas;
 
-        if (!data[Gas]) {
+        if (!data[Gas])
             return res.status(400).json({error: "Couldn't Find Gas."})
-        }
+
 
         Slopes[Gas] = [];
         let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
         let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
         linear(NewTime, NewMeasurement, Slopes[Gas] = {});
 
-    } else
-        for (let Gas of GasNames) {
-            let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
-            let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
-            linear(NewTime, NewMeasurement, Slopes[Gas] = {});
-        }
+        req.Slopes = Slopes;
+        next();
+    }
+    for (let Gas of GasNames) {
+        let NewTime = data.Time.slice(data.ExpStartTime, data.ExpEndTime);
+        let NewMeasurement = data[Gas].Measurement.slice(data.ExpStartTime, data.ExpEndTime);
+        linear(NewTime, NewMeasurement, Slopes[Gas] = {});
+    }
 
     req.Slopes = Slopes;
     next();
@@ -80,24 +80,35 @@ async function Extract_XY_Points(req, res, next) {
 
         let Gas = req.body.Gas;
 
-        if (!data[Gas]) {
+        if (!data[Gas])
             return res.status(400).json({error: "Couldn't Find Gas."})
-        }
+
 
         Points[Gas] = [];
         for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
             Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
 
-    } else
-        for (let Gas of GasNames) {
+        req.Points = Points;
+        next();
+    }
 
-            Points[Gas] = [];
+    for (let Gas of GasNames) {
 
-            for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
-                Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
-        }
+        Points[Gas] = [];
+
+        for (let i = data.ExpStartTime; i < data.ExpEndTime; i++)
+            Points[Gas].push([data.Time[i], data[Gas].Measurement[i]]);
+    }
 
     req.Points = Points;
+    next();
+}
+
+async function Get_Gas_Names(req, res, next) {
+    let data = req.data;
+    let keys = Object.keys(data);
+    let Names = keys.slice(keys.indexOf('SpectrumFile') + 1);
+    req.Names = Names;
     next();
 }
 
@@ -138,5 +149,6 @@ module.exports = {
     Calculate_Gas_Slopes: Calculate_Gas_Slopes,
     Extract_XY_Points: Extract_XY_Points,
     Get_Chart_Series: Get_Chart_Series,
-    Get_Exp_Start_End: Get_Exp_Start_End
+    Get_Exp_Start_End: Get_Exp_Start_End,
+    Get_Gas_Names: Get_Gas_Names
 }
