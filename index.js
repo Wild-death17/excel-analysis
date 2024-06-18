@@ -1,4 +1,4 @@
-// npm i ejs body-parser express path fs multer xlsx least-squares apexcharts
+// npm i ejs body-parser express path fs multer xlsx least-squares apexcharts mysql2
 
 const express = require('express');
 const app = express();
@@ -15,14 +15,18 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: false}));
 
+let db_M = require('./database');
+global.db_pool = db_M.pool;
 
 app.use(express.static(path.join(__dirname, "Imgs")));
 app.use(express.static(path.join(__dirname, "Css")));
 app.use(express.static(path.join(__dirname, "Js")));
 
 const DataRoute = require('./Route/Data-Ext-Route');
+const DBRoute = require('./Route/DB-Route');
 const FileRoute = require('./Route/File-Route');
 
+app.use('/Database', DBRoute);
 app.use('/DataText', DataRoute);
 app.use('/Files', FileRoute);
 app.get('/', (req, res) => {
