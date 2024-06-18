@@ -1,16 +1,33 @@
-function Read_All_Rows() {
+function Read_All_Rows(req,res,next) {
+    let {Table_Name} = req.body;
+    let Query = `SELECT * FROM ${Table_Name}`;
+    db_pool.query(Query,(err,rows,fields)=>{
+        if (err){
+           return res.status(500).json({message:err});
+        }
+        res.status(200).json(rows);
+    })
+        next();
+}
+function Read_Row(req,res,next) {
+    let {Table_Name,Column_Name} = req.body;
+    let {Id} = req.params;
+    let Query = `SELECT * FROM ${Table_Name} WHERE ${Column_Name} = ${Id}`;
+    db_pool.query(Query,(err,row,fields)=>{
+        if (err){
+            return res.status(500).json({message:err});
+        }
+        res.status(200).json(row);
+    })
+    next();
+}
+function Add_Row(req,res,next) {
 
 }
-function Read_Row() {
+function Update_Row(req,res,next) {
 
 }
-function Add_Row() {
-
-}
-function Update_Row() {
-
-}
-function Delete_Row() {
+function Delete_Row(req,res,next) {
 
 }
 
