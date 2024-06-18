@@ -1,4 +1,4 @@
-function Read_All_Rows(req, res, next) {
+async function Read_All_Rows(req, res, next) {
     let {Table_Name} = req.body;
     let Query = `SELECT * FROM ${Table_Name}`;
     db_pool.query(Query, (err, rows, fields) => {
@@ -10,7 +10,7 @@ function Read_All_Rows(req, res, next) {
     next();
 }
 
-function Read_Row(req, res, next) {
+async function Read_Row(req, res, next) {
     let {Table_Name, Column_Name} = req.body;
     let {Id} = req.params;
     let Query = `SELECT * FROM ${Table_Name} WHERE ${Column_Name} = ${Id}`;
@@ -23,16 +23,15 @@ function Read_Row(req, res, next) {
     next();
 }
 
-function Delete_Row(req, res, next) {
+async function Delete_Row(req, res, next) {
     let {Table_Name, Column_Name} = req.body;
     let {Id} = req.params;
-    let Query = `DELETE * FROM ${Table_Name} WHERE ${Column_Name} = ${Id}`;
+    let Query = `DELETE FROM ${Table_Name} WHERE ${Column_Name} = ${Id}`;
     db_pool.query(Query, (err, row, fields) => {
         if (err) {
             return res.status(500).json({message: err});
         }
-        res.status(200).json({RowDeleted: row.insertId});
-
+        res.status(200).json({Massage: "The row Deleted successfully!"});
     })
     next();
 }
