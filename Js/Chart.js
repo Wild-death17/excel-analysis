@@ -64,9 +64,7 @@ async function RenderChart(GasName) {
             data: [Series[GasName].data[StartEnd.ExpStartTime], Series[GasName].data[StartEnd.ExpEndTime - 1]]
         }];
     Chart.updateSeries(NewSeries);
-    Chart.toggleSeries('Slope-Intercept');
 }
-
 
 async function GetStartEnd() {
     let Response = await fetch('http://localhost:2507/DataText/ExpStartEnd', {method: 'Post'});
