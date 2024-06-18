@@ -15,6 +15,8 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: false}));
 
+global.Global_DB_MW = require("./MiddleWare/DB_MW");
+
 let db_M = require('./database');
 global.db_pool = db_M.pool;
 
