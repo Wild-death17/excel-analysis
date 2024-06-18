@@ -1,5 +1,5 @@
-let Chart, Series, StartEnd, Header = document.querySelector('.Header');
-let options = {
+let Chart, Series, NewSeries, StartEnd, Header = document.querySelector('.Header');
+let Options = {
     series: [{
         name: '',
         data: []
@@ -19,39 +19,56 @@ LoadPage();
 
 async function LoadPage() {
 
-    Series = await GetSeries()
-    StartEnd = await GetStartEnd()
+    let GasNames = await GetGasNames();
 
     let str = '<div class ="ChartSelectContainer">';
-        str += '<select class="ChartSelect" onchange="RenderChart(value)"  name="GasSelector" id="GasSelector">';
+    str += '<select class="ChartSelect" onchange="RenderChart(value)"  name="GasSelector" id="GasSelector">';
     str += '<option selected disabled>Please Select Gas</option>'
-    for (let GasName in Series)
+
+    for (let GasName of GasNames)
         str += `<option value="${GasName}">${GasName}</option>`;
     str += '</select></div>';
 
     Header.innerHTML = str;
+    StartEnd = await GetStartEnd();
 
-    Chart = new ApexCharts(document.querySelector(".Chart"), options);
+    Chart = new ApexCharts(document.querySelector(".Chart"), Options);
     await Chart.render();
 }
 
-async function GetSeries() {
-    let Response = await fetch('http://localhost:2507/DataText/ChartSeries', {method: 'Post'});
+async function GetGasNames() {
+    let Response = await fetch('http://localhost:2507/DataText/GasNames', {method: 'Post'});
     return await Response.json();
 }
+
+async function GetSeries(GasName) {
+    let Response = await fetch('http://localhost:2507/DataText/ChartSeries', {
+        method: 'Post',
+        headers:
+            {
+                'content-type': 'application/json'
+            }
+        , body: JSON.stringify({
+            Gas: GasName
+        })
+    });
+    return await Response.json();
+}
+
+async function RenderChart(GasName) {
+
+    Series = await GetSeries(GasName);
+    NewSeries = [Series[GasName],
+        {
+            name: 'Slope-Intercept',
+            data: [Series[GasName].data[StartEnd.ExpStartTime], Series[GasName].data[StartEnd.ExpEndTime - 1]]
+        }];
+    Chart.updateSeries(NewSeries);
+    Chart.toggleSeries('Slope-Intercept');
+}
+
 
 async function GetStartEnd() {
     let Response = await fetch('http://localhost:2507/DataText/ExpStartEnd', {method: 'Post'});
     return await Response.json();
-}
-
-function RenderChart(GasName) {
-
-    let NewSeries = [Series[GasName],
-        {
-        name: 'Slope-Intercept',
-        data: [Series[GasName].data[StartEnd.ExpStartTime], Series[GasName].data[StartEnd.ExpEndTime - 1]]
-    }];
-    Chart.updateSeries(NewSeries, true);
-    Chart.toggleSeries('Slope-Intercept');
 }
