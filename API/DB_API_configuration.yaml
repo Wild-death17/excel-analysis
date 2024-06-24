@@ -27,7 +27,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Excel/Res_Excel_All_Rows'
         '500':
-          description: Some kide of error.
+          description: "Some kide of error";
             content:
             application/json:
               schema:
@@ -45,12 +45,12 @@ paths:
           schema:
             type: int
       requestBody:
-        description: The table to get from, The name of the column id.
-            content:
-            application/json:
-                schema:
-                    $ref: '#/components/schemas/Excel/Req_Excel_Row'
-     responses:
+        description: "The table to get from, The name of the column id.";
+          content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Excel/Req_Excel_Row'
+      responses:
         '200':
           description: The row.
           content:
@@ -58,7 +58,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Excel/Res_Excel_Row'
         '500':
-          description: Some kide of error.
+          description: "Some kide of error.";
             content:
             application/json:
               schema:
@@ -84,7 +84,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Excel/Res_Add_Row'
         '500':
-          description: Some kide of error.
+          description: "Some kide of error.";
             content:
             application/json:
               schema:
@@ -116,7 +116,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Excel/Res_Add_Row'
         '500':
-          description: Some kide of error.
+          description: "Some kide of error.";
             content:
             application/json:
               schema:
@@ -134,11 +134,11 @@ paths:
           schema:
             type: int
       requestBody:
-        description: The table to get from, The name of the column id.
-            content:
-            application/json:
-                schema:
-                    $ref: '#/components/schemas/Excel/Req_Excel_Row'
+        description: "The table to get from, The name of the column id";
+          content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Excel/Req_Excel_Row'
       responses:
         '200':
           description: Massage.
@@ -146,68 +146,68 @@ paths:
             application/json:
               schema:
                 type: object
-                    properties:
-                        message:
-                            type: string
+                  properties:
+                    message:
+                      type: string
         '500':
-          description: Some kide of error.
+          description: "Some kide of error.";
             content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Excel/Error'
 components:
-    schemas:
-        Excel:
-            Excel_Row:
-                type: object
-                    properties:
-                        File_ID:
-                        type: int
-                        File_Path:
-                        type: string
-            Req_Excel_All_Rows:
-                type: object
-                    properties:
-                        Table_Name:
-                        type: string
-                    required:
-                        - Table_Name
-            
-            Res_Excel_All_Rows:
-                type: array
-                    items:
-                        $ref: '#/components/schemas/Excel/Excel_Row'
-            Req_Excel_Row:
-                type: object
-                    properties:
-                        Table_Name:
-                        type: string
-                        Column_Name:
-                        type: string
-                    required:
-                        - Table_Name
-                        - Column_Name
-            Res_Excel_Row:
-                type: array
-                    items:
-                        $ref: '#/components/schemas/Excel/Excel_Row'
-            Req_Add_Row:
-                type: object
-                    properties:
-                        File_Path:
-                        type: string
-                    required:
-                        - File_Path
-            Res_Add_Row:
-                type: array
-                    items:
-                        type: object
-                            properties:
-                                New_ID:
-                                type: int
-            Error:
-                type: object
-                    properties:
-                        message:
-                            type: string
+  schemas:
+    Excel:
+      Excel_Row:
+        type: object
+          properties:
+            File_ID:
+            type: int
+            File_Path:
+            type: string
+      Req_Excel_All_Rows:
+        type: object
+          properties:
+            Table_Name:
+            type: string
+          required:
+            - Table_Name
+
+      Res_Excel_All_Rows:
+        type: array
+          items:
+            $ref: '#/components/schemas/Excel/Excel_Row'
+      Req_Excel_Row:
+        type: object
+          properties:
+            Table_Name:
+            type: string
+            Column_Name:
+            type: string
+          required:
+            - Table_Name
+            - Column_Name
+      Res_Excel_Row:
+        type: array
+          items:
+            $ref: '#/components/schemas/Excel/Excel_Row'
+      Req_Add_Row:
+        type: object
+          properties:
+            File_Path:
+            type: string
+          required:
+            - File_Path
+      Res_Add_Row:
+        type: array
+          items:
+            type: object
+              properties:
+                New_ID:
+                type: int
+      Error:
+        type: object
+          properties:
+            message:
+              type: string
         
