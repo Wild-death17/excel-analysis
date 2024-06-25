@@ -1,0 +1,192 @@
+_type: export
+__export_format: 4
+__export_date: 2024-06-25T08:38:47.781Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: req_db48c42e861e4768a4ca5bfcfd8ca72d
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719304469898
+    created: 1719254926905
+    url: http://localhost:2507/Database/Gas/ReadAllRows
+    name: Read All Rows
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_328cefdc71ec466b9cf142ac3078588d
+          name: Table_Name
+          value: Gas
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254926905
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    parentId: null
+    modified: 1719303718315
+    created: 1719302337464
+    name: Gas table
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_55b3bc9cb7544b98b5b17d2d95c4ffda
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719304461228
+    created: 1719254925792
+    url: http://localhost:2507/Database/Gas/ReadRow/6
+    name: Read Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_b7810e2f303649099b4430250a1ddcc4
+          name: Table_Name
+          value: Gas
+          description: ""
+        - id: pair_8d9fea0269f2449fa75be4c909018b5d
+          name: Column_Name
+          value: Gas_ID
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254925792
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_23b9b6b30f1d42b6855414ab0c83f386
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719304434291
+    created: 1719254928425
+    url: http://localhost:2507/Database/Gas/DeleteRow/2
+    name: Delete Row
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_158484d69dc949f1ac74423a99eec969
+          name: Table_Name
+          value: Gas
+          description: ""
+        - id: pair_8bc4a26275394c45a94ec720f3e3e8fa
+          name: Column_Name
+          value: Gas_ID
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254919988.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a5478d38e21b4cb78d7711eeeb5d46ee
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719304016573
+    created: 1719254914184
+    url: http://localhost:2507/Database/Gas/AddRow
+    name: Add Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"Gas_Name":"test 6"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254914185
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ebbd617719bb4aca87b783092c23c067
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719304087107
+    created: 1719254913085
+    url: http://localhost:2507/Database/Gas/UpdateRow/2
+    name: Update Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"Gas_Name":"test 2"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254913085
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_07e9debb1df240b9810a11042ae96a83
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719254901177
+    created: 1719254901177
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1719254901177
+    _type: environment
+  - _id: jar_3da8bd9efe3f49bab6c2aa34080853d7
+    parentId: wrk_1d0d675e15d04d6baaaf8b7a8e2aeb2a
+    modified: 1719254901180
+    created: 1719254901180
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
