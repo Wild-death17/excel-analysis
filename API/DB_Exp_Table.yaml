@@ -1,0 +1,202 @@
+_type: export
+__export_format: 4
+__export_date: 2024-06-25T07:55:46.164Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: req_1ae92e1618a747cf9586f9dcf35fcd4e
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719255195967
+    created: 1719254926905
+    url: http://localhost:2507/Database/Exp/ReadAllRows
+    name: Read All Rows
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_328cefdc71ec466b9cf142ac3078588d
+          name: Table_Name
+          value: Exp
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254926905
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    parentId: null
+    modified: 1719254901171
+    created: 1719254901171
+    name: Exp table
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_059f3c14e830475c8b4ddbe498bb43dc
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719256144849
+    created: 1719254925792
+    url: http://localhost:2507/Database/Exp/ReadRow/2
+    name: Read Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_b7810e2f303649099b4430250a1ddcc4
+          name: Table_Name
+          value: Exp
+          description: ""
+        - id: pair_8d9fea0269f2449fa75be4c909018b5d
+          name: Column_Name
+          value: Exp_ID
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254925792
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a0fe9d5f9cf740798ced3e2cfc921d04
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719256215370
+    created: 1719254928425
+    url: http://localhost:2507/Database/Exp/DeleteRow/2
+    name: Delete Row
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_158484d69dc949f1ac74423a99eec969
+          name: Table_Name
+          value: Exp
+          description: ""
+        - id: pair_8bc4a26275394c45a94ec720f3e3e8fa
+          name: Column_Name
+          value: Exp_ID
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254919988.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6c4c38bdfda34872bf75ebb2fc6cbc3d
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719256185942
+    created: 1719254914184
+    url: http://localhost:2507/Database/Exp/AddRow
+    name: Add Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"Exp_Name":"test 5",
+        	"File_ID":"1",
+        	"Target_Gas_ID":"1",
+        	"Start_Exp":"10-10-2000",
+        	"End_Exp":"10-10-2000",
+        	"Gas_Slope":"123"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254914185
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ff6d5f2bb4644166ac6c97932200d3e3
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719256193994
+    created: 1719254913085
+    url: http://localhost:2507/Database/Exp/UpdateRow/1
+    name: Update Row
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"Exp_Name":"test 3",
+        	"File_ID":"1",
+        	"Target_Gas_ID":"1",
+        	"Start_Exp":"10-10-2000",
+        	"End_Exp":"10-10-2000",
+        	"Gas_Slope":"123"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1719254913085
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_6f6feea57501f3e19a5dc3ba95793882d034c8e4
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719254901177
+    created: 1719254901177
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1719254901177
+    _type: environment
+  - _id: jar_6f6feea57501f3e19a5dc3ba95793882d034c8e4
+    parentId: wrk_a445a54a6fab4dd48fc87b4a63eb58d0
+    modified: 1719254901180
+    created: 1719254901180
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
