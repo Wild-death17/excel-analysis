@@ -1,12 +1,12 @@
 async function Read_All_Rows(req, res, next) {
     let {Table_Name} = req.body;
     let Query = `SELECT * FROM ${Table_Name}`;
-    db_pool.query(Query, (err, rows, fields) => {
-        if (err) {
-            return res.status(500).json({message: err});
-        }
-        res.status(200).json(rows);
-    })
+    let db_promise = db_pool.promise();
+    try {
+        res.status(200).json(await db_promise.query(Query));
+    }catch (err){
+        return res.status(500).json({message: err});
+    }
     next();
 }
 
@@ -14,23 +14,25 @@ async function Read_Row(req, res, next) {
     let {Table_Name, Column_Name} = req.body;
     let {Id} = req.params;
     let Query = `SELECT * FROM ${Table_Name} WHERE ${Column_Name} = ${Id}`;
-    db_pool.query(Query, (err, row, fields) => {
-        if (err) {
+    let db_promise = db_pool.promise();
+    try {
+        res.status(200).json(await db_promise.query(Query));
+    }catch (err){
             return res.status(500).json({message: err});
         }
-        res.status(200).json(row);
-    })
     next();
 }
 
 async function Delete_Row(req, res, next) {
-    let {Table_Name, Column_Name,column_Val} = req.body;
+    let {Table_Name, Column_Name, column_Val} = req.body;
     let Query = `DELETE FROM ${Table_Name} WHERE ${Column_Name} = '${column_Val}'`;
-    db_pool.query(Query, (err, row, fields) => {
-        if (err) {
-            return res.status(500).json({message: err});
-        }
-    })
+    let db_promise = db_pool.promise();
+    try {
+        await db_promise.query(Query);
+    }
+    catch (err) {
+        return res.status(500).json({message: err});
+    }
     next();
 }
 

@@ -52,7 +52,7 @@ let FileMethods = {
                 body: JSON.stringify({
                     FilePath: FilePath,
                     Table_Name: "Excel",
-                    Column_Name: "File_Path",
+                    Column_Name: "Fle_Path",
                     column_Val:FilePath
                 })
             })
