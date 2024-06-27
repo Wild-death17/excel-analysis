@@ -50,7 +50,10 @@ let FileMethods = {
                     'content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    FilePath: FilePath
+                    FilePath: FilePath,
+                    Table_Name: "Excel",
+                    Column_Name: "File_Path",
+                    column_Val:FilePath
                 })
             })
         }
