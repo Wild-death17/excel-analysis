@@ -5,19 +5,12 @@
     width: 100%;
     display: grid;
     grid-template-columns: 2fr 1fr;
-}
-
-#Files div {
-    border-radius: 10px 10px 10px 10px;
-    background-color: lightgrey;
+    background-image: linear-gradient(to right, var(--penn-blue), var(--delft-blue));
 }
 
 #Files #DisplayFiles {
     display: grid;
     grid-template-columns:repeat(5, 20%);
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
 
