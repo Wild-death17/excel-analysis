@@ -4,8 +4,7 @@ const express = require('express');
 const Route = express.Router();
 module.exports = Route;
 Route.post('/UploadFile', [Files_MW.Upload.single('file'), Files_MW.File_Con,DB_Excel_MW.Add_Row], (req, res) => {
-    console.log("uploaded")
-    res.json({msg: "The file has been uploaded successfully."});
+    res.json({msg: "The file has been uploaded successfully.",insertedId:req.id});
 });
 Route.post('/ReadFile', [Files_MW.ReadFile], (req, res) => {
     res.status(200).json(res.response);
