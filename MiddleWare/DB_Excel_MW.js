@@ -1,13 +1,12 @@
 async function Add_Row(req, res, next) {
-    let {File_Path} = req.body;
+    //let {File_Path} = req.body;
     let Query = "INSERT INTO  Excel";
     Query += "(File_Path) ";
-    Query += `VALUES('${File_Path}')`;
+    Query += `VALUES('${req.FilePate}')`;
     db_pool.query(Query, function (err, row, fields) {
         if (err) {
             return res.status(500).json({message: err});
         }
-        res.status(200).json({New_ID: row.insertId});
     })
     next();
 }

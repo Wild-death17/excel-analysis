@@ -1,8 +1,10 @@
 const Files_MW = require("../MiddleWare/Files_MW");
+const DB_Excel_MW = require("../MiddleWare/DB_Excel_MW");
 const express = require('express');
 const Route = express.Router();
 module.exports = Route;
-Route.post('/UploadFile', [Files_MW.Upload.single('file'), Files_MW.File_Con], (req, res) => {
+Route.post('/UploadFile', [Files_MW.Upload.single('file'), Files_MW.File_Con,DB_Excel_MW.Add_Row], (req, res) => {
+    console.log("uploaded")
     res.json({msg: "The file has been uploaded successfully."});
 });
 Route.post('/ReadFile', [Files_MW.ReadFile], (req, res) => {

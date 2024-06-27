@@ -20,10 +20,10 @@ async function File_Con(req, res, next) {
     if (!req.file){
         return res.json({msg: 'No File Uploaded.'})
     }
-    const FilePate = req.file.path;
+    req.FilePate = req.file.path;
 
-    if (!FilePate.endsWith('.xlsx')) {
-        fs.unlinkSync(FilePate);
+    if (!req.FilePate.endsWith('.xlsx')) {
+        fs.unlinkSync(req.FilePate);
         return res.json({msg: 'Invalid File Format.'});
     }
     next();
