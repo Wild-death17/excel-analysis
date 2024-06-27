@@ -11,9 +11,10 @@ h1{
     border: 1px solid;
     padding: 20px;
     display: grid;
-    align-items:center;
+    align-items: center;
     grid-template-columns: repeat(2,auto);
 }
 #CheckBox .box{
-    height: 100px;
+    margin: 20px;
+    font-size: xx-large;
 }
