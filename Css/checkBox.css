@@ -1,7 +1,14 @@
 .View-Port{
     background-color: lightgray;
 }
-h1{
+.View-Port button{
+    width: 5rem;
+    height: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: auto 47%;
+}
+.View-Port h1{
     text-align: center;
     margin: 0px auto;
 }
