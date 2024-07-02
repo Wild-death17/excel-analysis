@@ -18,7 +18,7 @@ let FileMethods = {
     },
     ExtractData: async function (FilePath) {
         HideList('List');
-        let Response = await fetch("/Files/ChangeFile", {
+        let Response = await fetch("/Files/ExtractFile", {
             method: "POST",
             headers: {
                 'content-Type': 'application/json'
@@ -27,7 +27,8 @@ let FileMethods = {
                 FilePath: FilePath
             })
         })
-        await alert("Waiting for mr yehiel!! He is the only one who can understand his own code");
+        let res = await Response.json();
+        console.log(res)
     },
     Display: async function () {
         let data = await FileMethods.Read();
