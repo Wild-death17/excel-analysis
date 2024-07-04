@@ -29,7 +29,7 @@ let FileMethods = {
         })
 
         let res = await Response.json();
-        window.location.href = `/checkBox?keys=${encodeURIComponent(res)}`;
+        window.location.href = `/checkBox?keys=${encodeURIComponent(JSON.stringify(res))}`;
     },
     Display: async function () {
         let data = await FileMethods.Read();
