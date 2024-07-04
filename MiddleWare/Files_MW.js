@@ -30,10 +30,10 @@ async function File_Con(req, res, next) {
     next();
 }
 
-function Read_File_Keys(req, res, next) {
+async function Read_File_Keys(req, res, next) {
     const WorkBook = xlsx.readFile('./Uploads/' + MainFilePath);
-    const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
-    req.headers = xlsx.utils.sheet_to_json(WorkSheet, {
+    const WorkSheet = await WorkBook.Sheets[WorkBook.SheetNames[0]];
+    req.headers = await xlsx.utils.sheet_to_json(WorkSheet, {
         header: 1,
         raw: false,
         dateNF: 'HH:mm:ss'
@@ -81,8 +81,8 @@ function GetFiles(req, res, next) {
     })
 }
 
-function ChangeFileTmpMw(req, res, next) {
-    MainFilePath = req.body.FilePath;
+async function ChangeFileTmpMw(req, res, next) {
+    MainFilePath = await req.body.FilePath;
     next();
 }
 

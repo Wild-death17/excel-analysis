@@ -27,8 +27,9 @@ let FileMethods = {
                 FilePath: FilePath
             })
         })
+
         let res = await Response.json();
-        console.log(res)
+        window.location.href = `/checkBox?keys=${encodeURIComponent(res)}`;
     },
     Display: async function () {
         let data = await FileMethods.Read();
