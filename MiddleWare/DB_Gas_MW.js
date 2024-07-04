@@ -13,6 +13,29 @@ async function Add_Row(req, res, next) {
     })
     next();
 }
+async function Add_Multiple_Row(req, res, next) {
+    let idArr=[];
+    for (const reqElement in req.body) {
+        if (!reqElement)
+            return res.status(500).json({message: "gas name is undefined!"});
+        let Query = "INSERT INTO  Gas";
+        Query += "(Gas_Name) ";
+        Query += `SELECT '${reqElement}' `;
+        Query += `WHERE NOT EXISTS ( SELECT 1 `;
+        Query += `FROM gas WHERE Gas_Name = '${reqElement}');`;
+        let db_promise =db_pool.promise();
+
+        try{
+            let [rows] = await db_promise.query(Query);
+            idArr.push(rows.insertId)
+
+        }catch (err){
+            res.status(500).json({message: err});
+        }
+    }
+    res.status(200).json({ID_Arr: idArr});
+    next();
+}
 
 async function Update_Row(req, res, next) {
     let {Gas_Name} = req.body;
@@ -31,5 +54,6 @@ async function Update_Row(req, res, next) {
 
 module.exports = {
     Add_Row: Add_Row,
+    Add_Multiple_Row: Add_Multiple_Row,
     Update_Row: Update_Row
 }
