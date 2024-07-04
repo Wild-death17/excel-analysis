@@ -41,7 +41,8 @@ app.get('///', (req, res) => {
     res.render('Files.ejs')
 })
 app.get('/checkBox', (req, res) => {
-    res.render('CheckBox.ejs',)
+    const { keys} = req.query;
+    res.render('CheckBox.ejs',{keys:keys})
 })
 app.listen(port, () => {
     console.log(`Now listening on port \n http://localhost:${port}/\n http://localhost:${port}//\nhttp://localhost:${port}///\nhttp://localhost:${port}/checkBox`);

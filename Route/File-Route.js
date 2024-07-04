@@ -17,7 +17,6 @@ Route.delete('/DeleteFile', [Files_MW.ChangeFileTmpMw,Global_DB_MW.Delete_Row,Fi
     res.redirect('/GetFile');
 });
 Route.post('/ExtractFile', [Files_MW.ChangeFileTmpMw,Files_MW.Read_File_Keys], (req, res) => {
-    console.log(req.headers)
     res.status(200).json(req.headers);
 });
 
