@@ -23,8 +23,7 @@ let Options = {
 };
 LoadPage();
 
-async function LoadPage() {
-  let GasNames = await GetGasNames();
+async function LoadPage(GasNames) {
 
   let str = '<div class ="ChartSelectContainer">';
   str +=
@@ -85,5 +84,5 @@ async function GetStartEnd() {
 }
 
 function Load_Gases(GasNames) {
-  console.log(GasNames);
+  LoadPage(GasNames);
 }
