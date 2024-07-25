@@ -15,7 +15,7 @@ async function Add_Row(req, res, next) {
 }
 async function Add_Multiple_Row(req, res, next) {
   let idArr = [];
-  for (const reqElement in req.body) {
+  for (const reqElement of req.body.Gases) {
     if (!reqElement)
       return res.status(500).json({ message: "gas name is undefined!" });
     let Query = "INSERT INTO  Gas";
@@ -32,9 +32,7 @@ async function Add_Multiple_Row(req, res, next) {
       res.status(500).json({ message: err });
     }
   }
-  
-  console.log(req.body);
-  res.status(200).render("Chart.ejs", { gasArr: JSON.stringify(req.body) });
+  res.status(200).json({ IdArr:idArr });
   next();
 }
 

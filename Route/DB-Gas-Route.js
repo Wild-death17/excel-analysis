@@ -11,7 +11,7 @@ Route.delete('/DeleteRow/:Id',[Global_DB_MW.Delete_Row],(req,res)=>{
 });
 Route.post('/AddRow',[Gas_Mw.Add_Row],(req,res)=>{
 });
-Route.post('/AddMultipleRows',[Gas_Mw.Add_Multiple_Row],(req,res)=>{
+Route.post('/AddMultipleRows', [Gas_Mw.Add_Multiple_Row], (req, res) => {
 });
 Route.post('/UpdateRow/:Id',[Gas_Mw.Update_Row],(req,res)=>{
 });

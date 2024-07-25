@@ -84,5 +84,6 @@ async function GetStartEnd() {
 }
 
 function Load_Gases(GasNames) {
-  LoadPage(GasNames);
+ // let gases = JSON.parse(GasNames)
+ // LoadPage(gases);
 }
