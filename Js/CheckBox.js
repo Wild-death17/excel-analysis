@@ -26,12 +26,28 @@ function submit(isPressed) {
                 break;
             }
         }
-        console.log("Target gas", targetGas);
-        console.log("gases", gases);
+        FatchGases();
     }
 }
-function CheckForClicked(list) {
-    
+function FetchGases() {
+    fetch("http://localhost:2507/Database/Gas/AddMultipleRows",{
+        method: "POST",
+        headers: {
+            'content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            gases: gases
+        })
+    })
+    fetch("http://localhost:2507/Database/Gas/AddMultipleRows",{
+        method: "POST",
+        headers: {
+            'content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            gases: gases
+        })
+    })
 }
 function CreateChackBox(keysArr) {
     for (const KeysElement of keysArr) {
