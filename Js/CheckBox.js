@@ -39,13 +39,13 @@ function FetchGases() {
             gases: gases
         })
     })
-    fetch("http://localhost:2507/Database/Gas/AddMultipleRows",{
+    fetch("http://localhost:2507/Database/Exp/AddRow",{
         method: "POST",
         headers: {
             'content-Type': 'application/json'
         },
         body: JSON.stringify({
-            gases: gases
+            Exp_Name:"First Exp",File_ID:,Target_Gas_ID:,Start_Exp:,End_Exp:,Gas_Slope:
         })
     })
 }

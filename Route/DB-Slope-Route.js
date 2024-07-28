@@ -1,4 +1,4 @@
-const Slope_Mw = require("../MiddleWare/DB_Slope_MW");
+const Slope_Mw = require("../MiddleWare/DB_Slope_MW.js");
 const express = require('express');
 const Route = express.Router();
 module.exports = Route;
