@@ -10,3 +10,7 @@ Route.use('/Exp', ExpRoute);
 Route.use('/Gas', GasRoute);
 Route.use('/Excel', ExcelRoute);
 
+
+Route.post('/ReadRow', [Global_DB_MW.Read_Row_With_Value], (req, res) => {
+});
+

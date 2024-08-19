@@ -69,3 +69,17 @@ let FileMethods = {
         return data;
     }
 };
+
+async function Get_Row_Id_From_DB(TableToCheck, ColumnName, Val) {
+    let response = await fetch("http://localhost:2507/Database/ReadRow",{
+            method: "POST",
+            headers: {
+                'content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Table_Name:TableToCheck, Column_Name:ColumnName,val:Val
+            })
+    })
+    let data = await response.json();
+    console.log(data);
+}

@@ -22,6 +22,17 @@ async function Read_Row(req, res, next) {
         }
     next();
 }
+async function Read_Row_With_Value(req, res, next) {
+    let {Table_Name, Column_Name,val} = req.body;
+    let Query = `SELECT * FROM ${Table_Name} WHERE ${Column_Name} = ${val}`;
+    let db_promise = db_pool.promise();
+    try {
+        res.status(200).json(await db_promise.query(Query));
+    }catch (err){
+            return res.status(500).json({message: err});
+        }
+    next();
+}
 
 async function Delete_Row(req, res, next) {
     let {Table_Name, Column_Name, column_Val} = req.body;
@@ -39,5 +50,6 @@ async function Delete_Row(req, res, next) {
 module.exports = {
     Read_All_Rows: Read_All_Rows,
     Read_Row: Read_Row,
-    Delete_Row: Delete_Row
+    Delete_Row: Delete_Row,
+    Read_Row_With_Value:Read_Row_With_Value
 }

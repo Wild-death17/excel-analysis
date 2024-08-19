@@ -1,3 +1,4 @@
+
 let Container = document.getElementById("CheckBox"),
     TargetGasInput = document.getElementsByName("TargetGas"),
     CheckBoxBtn = document.getElementById("CheckBoxBtn"),
@@ -26,7 +27,7 @@ function submit(isPressed) {
                 break;
             }
         }
-        FatchGases();
+        FetchGases();
     }
 }
 function FetchGases() {
@@ -39,7 +40,7 @@ function FetchGases() {
             gases: gases
         })
     })
-    fetch("http://localhost:2507/Database/Exp/AddRow",{
+    /*fetch("http://localhost:2507/Database/Exp/AddRow",{
         method: "POST",
         headers: {
             'content-Type': 'application/json'
@@ -47,7 +48,8 @@ function FetchGases() {
         body: JSON.stringify({
             Exp_Name:"First Exp",File_ID:,Target_Gas_ID:,Start_Exp:,End_Exp:,Gas_Slope:
         })
-    })
+    })*/
+    GeneralMethods.Get_Row_Id_From_DB("gas", "Gas_Name", targetGas);
 }
 function CreateChackBox(keysArr) {
     for (const KeysElement of keysArr) {

@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 global.Global_DB_MW = require("./MiddleWare/DB_MW");
 
-let db_M = require('./database');
+let db_M = require('./Database');
 global.db_pool = db_M.pool;
 
 app.use(express.static(path.join(__dirname, "Imgs")));

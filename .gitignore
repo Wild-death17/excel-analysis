@@ -1818,3 +1818,13 @@ node_modules/xtend/package.json
 node_modules/xtend/README.md
 node_modules/xtend/test.js
 package.json
+node_modules/aws-ssl-profiles/LICENSE
+node_modules/aws-ssl-profiles/README.md
+node_modules/aws-ssl-profiles/lib/index.d.ts
+node_modules/aws-ssl-profiles/lib/index.js
+node_modules/aws-ssl-profiles/lib/@types/profiles.d.ts
+node_modules/aws-ssl-profiles/lib/@types/profiles.js
+node_modules/aws-ssl-profiles/lib/profiles/ca/defaults.d.ts
+node_modules/aws-ssl-profiles/lib/profiles/ca/defaults.js
+node_modules/aws-ssl-profiles/lib/profiles/ca/proxies.d.ts
+node_modules/aws-ssl-profiles/lib/profiles/ca/proxies.js
