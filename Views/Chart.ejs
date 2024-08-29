@@ -1,7 +1,7 @@
 <%- include("Top.ejs") %>
 <div class="ChartContainer">
-    <div class="Chart"></div>
+  <div class="Chart"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script defer src="/Chart.js"></script>
+<script defer src="/Chart.js" onload="Load_Gases('<%= gasArr %>')"></script>
 <%- include("Bottom.ejs") %>

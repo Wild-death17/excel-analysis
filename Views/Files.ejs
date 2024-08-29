@@ -1,7 +1,7 @@
 <%- include("Top.ejs") %>
 <div id="List"></div>
 <div id="Files">
-    <div id="DisplayFiles">
+    <div id="DisplayFiles" class="ScrollingDiv">
     </div>
     <div id="UploadFiles">
         <label for="InputFile" id="DropArea">
@@ -11,6 +11,6 @@
         </label>
     </div>
 </div>
-<script defer src="/FileMethods.js"></script>
+<script defer src="/GeneralMethods.js"></script>
 <script defer src="/Files.js"></script>
 <%- include("Bottom.ejs") %>

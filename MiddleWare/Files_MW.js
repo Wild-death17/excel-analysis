@@ -17,23 +17,35 @@ const Storage = multer.diskStorage({
 const Upload = multer({storage: Storage});
 
 async function File_Con(req, res, next) {
-    if (!req.file){
+    if (!req.file) {
         return res.json({msg: 'No File Uploaded.'})
     }
-    const FilePate = req.file.path;
 
-    if (!FilePate.endsWith('.xlsx')) {
-        fs.unlinkSync(FilePate);
+    req.FilePath = req.file.filename;
+
+    if (!req.FilePath.endsWith('.xlsx')) {
+        fs.unlinkSync(req.FilePath);
         return res.json({msg: 'Invalid File Format.'});
     }
     next();
 }
 
-function ReadFile(req, res, next) {
+async function Read_File_Keys(req, res, next) {
+    const WorkBook = xlsx.readFile('./Uploads/' + MainFilePath);
+    const WorkSheet = await WorkBook.Sheets[WorkBook.SheetNames[0]];
+    req.headers = await xlsx.utils.sheet_to_json(WorkSheet, {
+        header: 1,
+        raw: false,
+        dateNF: 'HH:mm:ss'
+    })[0];
+    next();
+}
+
+async function ReadFile(req, res, next) {
     let FilePath = MainFilePath;
     const WorkBook = xlsx.readFile('./Uploads/' + FilePath);
-    const WorkSheet = WorkBook.Sheets[WorkBook.SheetNames[0]];
-    res.response = xlsx.utils.sheet_to_json(WorkSheet, {
+    const WorkSheet = await WorkBook.Sheets[WorkBook.SheetNames[0]];
+    res.response = await xlsx.utils.sheet_to_json(WorkSheet, {
         raw: false,
         dateNF: 'HH:mm:ss'
     });
@@ -68,8 +80,9 @@ function GetFiles(req, res, next) {
         next();
     })
 }
-function ChangeFileTmpMw(req, res, next){
-    MainFilePath = req.body.FilePath;
+
+async function ChangeFileTmpMw(req, res, next) {
+    MainFilePath = await req.body.FilePath;
     next();
 }
 
@@ -78,10 +91,11 @@ module.exports = {
     xlsx: xlsx,
     multer: multer,
     Upload: Upload,
+    Read_File_Keys: Read_File_Keys,
     File_Con: File_Con,
     ReadFile: ReadFile,
     GetFiles: GetFiles,
     DeleteFile: DeleteFile,
-    ChangeFileTmpMw:ChangeFileTmpMw
+    ChangeFileTmpMw: ChangeFileTmpMw
 
 }

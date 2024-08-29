@@ -1,5 +1,6 @@
 @import "Files.css";
 @import "Chart.css";
+@import "CheckBox.css";
 @import "Dashboard.css";
 
 :root {
@@ -53,6 +54,15 @@ body .Wrapper {
 .Wrapper .View-Port {
     height: 80%;
     padding: 30px;
+}
+.View-Port div{
+    border-radius: 10px 10px 10px 10px;
+    background-color: lightgrey;
+}
+.View-Port .ScrollingDiv{
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 a {

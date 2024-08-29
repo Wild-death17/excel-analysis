@@ -18,7 +18,7 @@ let FileMethods = {
     },
     ExtractData: async function (FilePath) {
         HideList('List');
-        let Response = await fetch("/Files/ChangeFile", {
+        let Response = await fetch("/Files/ExtractFile", {
             method: "POST",
             headers: {
                 'content-Type': 'application/json'
@@ -27,7 +27,9 @@ let FileMethods = {
                 FilePath: FilePath
             })
         })
-        await alert("Waiting for mr yehiel!! He is the only one who can understand his own code");
+
+        let res = await Response.json();
+        window.location.href = `/checkBox?keys=${encodeURIComponent(JSON.stringify(res))}`;
     },
     Display: async function () {
         let data = await FileMethods.Read();
@@ -50,7 +52,10 @@ let FileMethods = {
                     'content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    FilePath: FilePath
+                    FilePath: FilePath,
+                    Table_Name: "Excel",
+                    Column_Name: "Fle_Path",
+                    column_Val:FilePath
                 })
             })
         }
@@ -64,3 +69,17 @@ let FileMethods = {
         return data;
     }
 };
+
+async function Get_Row_Id_From_DB(TableToCheck, ColumnName, Val) {
+    let response = await fetch("http://localhost:2507/Database/ReadRow",{
+            method: "POST",
+            headers: {
+                'content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Table_Name:TableToCheck, Column_Name:ColumnName,val:Val
+            })
+    })
+    let data = await response.json();
+    console.log(data);
+}
